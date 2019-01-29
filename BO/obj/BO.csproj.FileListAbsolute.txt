@@ -1,0 +1,5 @@
+C:\Users\Hallison\Documents\Projetos\3Pratos\3Pratos\BO\bin\Debug\BO.dll
+C:\Users\Hallison\Documents\Projetos\3Pratos\3Pratos\BO\bin\Debug\BO.pdb
+C:\Users\Hallison\Documents\Projetos\3Pratos\3Pratos\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Hallison\Documents\Projetos\3Pratos\3Pratos\BO\obj\Debug\BO.dll
+C:\Users\Hallison\Documents\Projetos\3Pratos\3Pratos\BO\obj\Debug\BO.pdb

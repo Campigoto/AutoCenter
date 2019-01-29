@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{50311045-A6AB-4E64-91C9-052447EB77E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BO</RootNamespace>
+    <AssemblyName>BO</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Microsoft SQL Server\100\SDK\Assemblies\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Microsoft SQL Server\100\SDK\Assemblies\Microsoft.SqlServer.SmoExtended.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cheques_Pagar.cs" />
+    <Compile Include="Cheques_PagarCollection.cs" />
+    <Compile Include="Cidade.cs" />
+    <Compile Include="CidadeCollection.cs" />
+    <Compile Include="Cliente.cs" />
+    <Compile Include="ClienteCollection.cs" />
+    <Compile Include="Compra.cs" />
+    <Compile Include="CompraCollection.cs" />
+    <Compile Include="Connection.cs" />
+    <Compile Include="Contas_Pagar.cs" />
+    <Compile Include="Contas_PagarCollection.cs" />
+    <Compile Include="Fornecedor.cs" />
+    <Compile Include="FornecedorCollection.cs" />
+    <Compile Include="Funcionario.cs" />
+    <Compile Include="FuncionarioCollection.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="GrupoProduto.cs" />
+    <Compile Include="GrupoProdutoCollection.cs" />
+    <Compile Include="Historico_Estoque_Preco.cs" />
+    <Compile Include="Historico_Estoque_PrecoCollection.cs" />
+    <Compile Include="Historico_Lancamento.cs" />
+    <Compile Include="Historico_LancamentoCollection.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Operacao.cs" />
+    <Compile Include="OperacaoCollection.cs" />
+    <Compile Include="Parcelas_Pagar.cs" />
+    <Compile Include="Parcelas_PagarCollection.cs" />
+    <Compile Include="Produto.cs" />
+    <Compile Include="ProdutoCollection.cs" />
+    <Compile Include="Produtos_Compra.cs" />
+    <Compile Include="Produtos_CompraCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubGrupo_Produtos.cs" />
+    <Compile Include="SubGrupo_ProdutosCollection.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

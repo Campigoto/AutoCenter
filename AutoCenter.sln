@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BO", "BO\BO.csproj", "{50311045-A6AB-4E64-91C9-052447EB77E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIL", "UIL\UIL.csproj", "{9D8FE8ED-AB40-470C-A2A2-205DAFCE763D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8586B346-6537-4455-8101-994EEA82D2E6}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://programas-note:8080/tfs/autocenter
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = BO\\BO.csproj
+		SccProjectName1 = BO
+		SccLocalPath1 = BO
+		SccProjectUniqueName2 = UIL\\UIL.csproj
+		SccProjectName2 = UIL
+		SccLocalPath2 = UIL
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50311045-A6AB-4E64-91C9-052447EB77E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50311045-A6AB-4E64-91C9-052447EB77E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50311045-A6AB-4E64-91C9-052447EB77E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50311045-A6AB-4E64-91C9-052447EB77E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D8FE8ED-AB40-470C-A2A2-205DAFCE763D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D8FE8ED-AB40-470C-A2A2-205DAFCE763D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D8FE8ED-AB40-470C-A2A2-205DAFCE763D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D8FE8ED-AB40-470C-A2A2-205DAFCE763D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

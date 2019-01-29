@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="UIL" GeneratedClassName="Configuracoes">
+  <Profiles />
+  <Settings>
+    <Setting Name="Usuario" Type="System.String" Scope="User">
+      <Value Profile="(Default)">adm</Value>
+    </Setting>
+    <Setting Name="Senha" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3poffice</Value>
+    </Setting>
+    <Setting Name="Login_Automatico" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Mensagem_Gravar" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Cidade_Padrao" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Tipo_Pagto" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Conexao" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=CAMPIGOTO_NOTE\SQLEXPRESS;Initial Catalog=3Pratos;User ID=sa;Pwd=036239</Value>
+    </Setting>
+    <Setting Name="teste" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

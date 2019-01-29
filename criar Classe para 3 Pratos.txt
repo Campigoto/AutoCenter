@@ -1,0 +1,44 @@
+cidade, - ok
+cliente, - ok
+fornecedor,OK
+funcionario, OK                               AAFCA5A6EE
+grupo_produto,ok
+produto, OK
+operacoe_funcionario - OK
+
+
+
+Claudio: Data Source=SONY\sqlexpress;initial catalog=Medical;user ID=sa;Pwd=sql2k5server
+
+Relatorio Produto x Fornecedor : Intervalo de data - Fornecedor - Produto.
+- informando o fornecedor, mostra o relatorio de todos os produtos que ele fornece...
+- informando o produto, mostra todos os fornecedore que fornecdem
+
+produto , ultima compra, ultimo preço..
+
+
+
+
+
+Contas a pagar/pagas Intervalo  e:  p/ fornecedor
+                                    p/ historico
+
+Cadastro de compras: qdo precisar cadastrar produto novo, enquanto esta cadastrando a compra, 
+ir ao cadastro de produtos e voltar para a mesma tela de compras..
+
+
+
+* alterado : 	- frm_compras : incluido produto.PRO_PRECO_COMPRA = produtos_compra.PC_PRECO_COMPRA quando gravar produto na compra.
+		- acrescentado uma casa decimal -  return _PC_PRECO_COMPRA.ToString("0.000");
+
+
+Team Foundation Server:	http://campigoto_note:8080/tfs
+Web Access:	http://campigoto_note:8080/tfs/web
+
+*****************************
+Boa noite camarada.
+Segue anexo o projeto com as minhas modificações, lembrado que alterei vários arquivos, desde classe, form, dataset e rdlc.
+Criar estes dois campos na tabela Parcelas_Pagar: PCA_ACRESCIMO float, PCA_DESCONTO float.
+Amanhã vou instalar o 'professional team foundation server' pra testar.
+
+Abraço.

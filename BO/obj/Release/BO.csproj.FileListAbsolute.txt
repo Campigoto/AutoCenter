@@ -1,0 +1,16 @@
+D:\Programação\3Pratos\BO\bin\Release\BO.dll
+D:\Programação\3Pratos\BO\bin\Release\BO.pdb
+D:\Programação\3Pratos\BO\obj\Release\ResolveAssemblyReference.cache
+D:\Programação\3Pratos\BO\obj\Release\BO.dll
+D:\Programação\3Pratos\BO\obj\Release\BO.pdb
+C:\Programas\AutoCenter\BO\bin\Release\BO.dll
+C:\Programas\AutoCenter\BO\bin\Release\BO.pdb
+C:\Programas\AutoCenter\BO\bin\Release\ImprimeTexto.dll
+C:\Programas\AutoCenter\BO\obj\Release\ResolveAssemblyReference.cache
+C:\Programas\AutoCenter\BO\obj\Release\BO.dll
+C:\Programas\AutoCenter\BO\obj\Release\BO.pdb
+D:\Importantes\Pen16gb\AutoCenter\BO\bin\Release\BO.dll
+D:\Importantes\Pen16gb\AutoCenter\BO\bin\Release\BO.pdb
+D:\Importantes\Pen16gb\AutoCenter\BO\obj\Release\BO.csprojResolveAssemblyReference.cache
+D:\Importantes\Pen16gb\AutoCenter\BO\obj\Release\BO.dll
+D:\Importantes\Pen16gb\AutoCenter\BO\obj\Release\BO.pdb

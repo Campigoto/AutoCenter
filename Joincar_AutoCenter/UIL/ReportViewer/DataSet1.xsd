@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.UIL.Properties.Settings.GlobalReference.Default.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Rel_Contas_PagarTableAdapter" GeneratorDataComponentClassName="Rel_Contas_PagarTableAdapter" Name="Rel_Contas_Pagar" UserDataComponentName="Rel_Contas_PagarTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Contas_Pagar.CAP_CODIGO, Contas_Pagar.CAP_FORNECEDOR, Contas_Pagar.CAP_COMPRA, Contas_Pagar.CAP_TOTAL, Contas_Pagar.CAP_CADASTRO, 
+                         Contas_Pagar.CAP_OBS, Contas_Pagar.CAP_LANCAMENTO, Parcelas_Pagar.PCA_CARNE, Parcelas_Pagar.PCA_ITEM, Parcelas_Pagar.PCA_TIPO, 
+                         Parcelas_Pagar.PCA_NUM_DOC, Parcelas_Pagar.PCA_OBS, Parcelas_Pagar.PCA_VALOR, Parcelas_Pagar.PCA_VALOR_PAGO, Parcelas_Pagar.PCA_DATA_PAGTO, 
+                         Parcelas_Pagar.PCA_VENC, Parcelas_Pagar.PCA_ITEM_NOVA_PARC, COALESCE (Fornecedor.FOR_NOME, '') AS FOR_NOME, 
+                         COALESCE (Historico_Lancamento.HIS_DESCRICAO, '') AS HIS_DESCRICAO, CASE WHEN PCA_VALOR_PAGO = 0 THEN PCA_VALOR ELSE 0 END AS TOTAL_PAGAR,
+                         COALESCE(COM_OUT_DESPESAS, 0) AS COM_OUT_DESPESAS, COALESCE(COM_FRETE, 0) AS COM_FRETE, COALESCE(COM_ACRESCIMO, 0) AS COM_ACRESCIMO, 
+                         COALESCE(COM_DESCONTO, 0) AS COM_DESCONTO, PCA_ACRESCIMO, PCA_DESCONTO, COM_TOTAL
+FROM            Contas_Pagar LEFT OUTER JOIN
+                         Parcelas_Pagar ON Contas_Pagar.CAP_CODIGO = Parcelas_Pagar.PCA_CARNE LEFT OUTER JOIN
+                         Fornecedor ON Contas_Pagar.CAP_FORNECEDOR = Fornecedor.FOR_CODIGO LEFT OUTER JOIN
+                         Historico_Lancamento ON Contas_Pagar.CAP_LANCAMENTO = Historico_Lancamento.HIS_ID LEFT OUTER JOIN
+                         Compra ON COM_CODIGO = CAP_COMPRA
+WHERE        (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 0) AND (@PAGA = 2) OR
+                         (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 1) AND (@PAGA = 2) AND (Contas_Pagar.CAP_COMPRA = 0) OR
+                         (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 2) AND (@PAGA = 2) AND (Contas_Pagar.CAP_COMPRA &gt; 0) OR
+                         (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 0) AND (@PAGA = 1) AND (Parcelas_Pagar.PCA_VALOR_PAGO &gt; 0) OR
+                         (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 1) AND (@PAGA = 1) AND (Contas_Pagar.CAP_COMPRA = 0) AND (Parcelas_Pagar.PCA_VALOR_PAGO &gt; 0) OR
+                         (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 2) AND (@PAGA = 1) AND (Contas_Pagar.CAP_COMPRA &gt; 0) AND (Parcelas_Pagar.PCA_VALOR_PAGO &gt; 0) OR
+                         (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 0) AND (@PAGA = 0) AND (Parcelas_Pagar.PCA_VALOR_PAGO = 0) OR
+                         (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 1) AND (@PAGA = 0) AND (Contas_Pagar.CAP_COMPRA = 0) AND (Parcelas_Pagar.PCA_VALOR_PAGO = 0) OR
+                         (CAST(FLOOR(CAST(Parcelas_Pagar.PCA_VENC AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND 
+                         (Contas_Pagar.CAP_FORNECEDOR = @CAP_FORNECEDOR OR
+                         @CAP_FORNECEDOR = 0) AND (Contas_Pagar.CAP_LANCAMENTO = @CAP_LANCAMENTO OR
+                         @CAP_LANCAMENTO = 0) AND (@ORIGEM = 2) AND (@PAGA = 0) AND (Contas_Pagar.CAP_COMPRA &gt; 0) AND (Parcelas_Pagar.PCA_VALOR_PAGO = 0)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_INICIAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_INICIAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_FINAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_FINAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="CAP_FORNECEDOR" ColumnName="CAP_FORNECEDOR" DataSourceName="[3Pratos].dbo.Contas_Pagar" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@CAP_FORNECEDOR" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="CAP_FORNECEDOR" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="CAP_LANCAMENTO" ColumnName="CAP_LANCAMENTO" DataSourceName="[3Pratos].dbo.Contas_Pagar" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@CAP_LANCAMENTO" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="CAP_LANCAMENTO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="ORIGEM" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="AnsiString" Direction="Input" ParameterName="@ORIGEM" Precision="0" Scale="0" Size="1024" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="PAGA" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="AnsiString" Direction="Input" ParameterName="@PAGA" Precision="0" Scale="0" Size="1024" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CAP_CODIGO" DataSetColumn="CAP_CODIGO" />
+              <Mapping SourceColumn="CAP_FORNECEDOR" DataSetColumn="CAP_FORNECEDOR" />
+              <Mapping SourceColumn="CAP_COMPRA" DataSetColumn="CAP_COMPRA" />
+              <Mapping SourceColumn="CAP_TOTAL" DataSetColumn="CAP_TOTAL" />
+              <Mapping SourceColumn="CAP_CADASTRO" DataSetColumn="CAP_CADASTRO" />
+              <Mapping SourceColumn="CAP_OBS" DataSetColumn="CAP_OBS" />
+              <Mapping SourceColumn="CAP_LANCAMENTO" DataSetColumn="CAP_LANCAMENTO" />
+              <Mapping SourceColumn="PCA_CARNE" DataSetColumn="PCA_CARNE" />
+              <Mapping SourceColumn="PCA_ITEM" DataSetColumn="PCA_ITEM" />
+              <Mapping SourceColumn="PCA_TIPO" DataSetColumn="PCA_TIPO" />
+              <Mapping SourceColumn="PCA_NUM_DOC" DataSetColumn="PCA_NUM_DOC" />
+              <Mapping SourceColumn="PCA_OBS" DataSetColumn="PCA_OBS" />
+              <Mapping SourceColumn="PCA_VALOR" DataSetColumn="PCA_VALOR" />
+              <Mapping SourceColumn="PCA_VALOR_PAGO" DataSetColumn="PCA_VALOR_PAGO" />
+              <Mapping SourceColumn="PCA_DATA_PAGTO" DataSetColumn="PCA_DATA_PAGTO" />
+              <Mapping SourceColumn="PCA_VENC" DataSetColumn="PCA_VENC" />
+              <Mapping SourceColumn="PCA_ITEM_NOVA_PARC" DataSetColumn="PCA_ITEM_NOVA_PARC" />
+              <Mapping SourceColumn="FOR_NOME" DataSetColumn="FOR_NOME" />
+              <Mapping SourceColumn="HIS_DESCRICAO" DataSetColumn="HIS_DESCRICAO" />
+              <Mapping SourceColumn="TOTAL_PAGAR" DataSetColumn="TOTAL_PAGAR" />
+              <Mapping SourceColumn="COM_OUT_DESPESAS" DataSetColumn="COM_OUT_DESPESAS" />
+              <Mapping SourceColumn="COM_FRETE" DataSetColumn="COM_FRETE" />
+              <Mapping SourceColumn="COM_ACRESCIMO" DataSetColumn="COM_ACRESCIMO" />
+              <Mapping SourceColumn="COM_DESCONTO" DataSetColumn="COM_DESCONTO" />
+              <Mapping SourceColumn="PCA_ACRESCIMO" DataSetColumn="PCA_ACRESCIMO" />
+              <Mapping SourceColumn="PCA_DESCONTO" DataSetColumn="PCA_DESCONTO" />
+              <Mapping SourceColumn="COM_TOTAL" DataSetColumn="COM_TOTAL" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Rel_LogTableAdapter" GeneratorDataComponentClassName="Rel_LogTableAdapter" Name="Rel_Log" UserDataComponentName="Rel_LogTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectName="[3Pratos].dbo.[Log]" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT LOG_CODIGO, LOG_USUARIO, LOG_DATA, LOG_TELA, LOG_DESCRICAO, COALESCE(FUN_NOME, '') AS FUN_NOME
+FROM Log LEFT OUTER JOIN Funcionario ON LOG_USUARIO = FUN_CODIGO
+WHERE CAST(FLOOR(CAST(LOG_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL
+AND (LOG_USUARIO = @LOG_USUARIO OR @LOG_USUARIO = 0)
+
+
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_INICIAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_INICIAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_FINAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_FINAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="LOG_USUARIO" ColumnName="LOG_USUARIO" DataSourceName="[3Pratos].dbo.[Log]" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@LOG_USUARIO" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="LOG_USUARIO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="LOG_CODIGO" DataSetColumn="LOG_CODIGO" />
+              <Mapping SourceColumn="LOG_USUARIO" DataSetColumn="LOG_USUARIO" />
+              <Mapping SourceColumn="LOG_DATA" DataSetColumn="LOG_DATA" />
+              <Mapping SourceColumn="LOG_TELA" DataSetColumn="LOG_TELA" />
+              <Mapping SourceColumn="LOG_DESCRICAO" DataSetColumn="LOG_DESCRICAO" />
+              <Mapping SourceColumn="FUN_NOME" DataSetColumn="FUN_NOME" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProdutoTableAdapter" GeneratorDataComponentClassName="ProdutoTableAdapter" Name="Produto" UserDataComponentName="ProdutoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Produto.PRO_CODIGO, Produto.PRO_GRUPO, Produto.PRO_INATIVO, Produto.PRO_ULT_COMPRA, Produto.PRO_NOME, Produto.PRO_REFERENCIA, 
+                         Produto.PRO_UNIDADE, Produto.PRO_OBS, Produto.PRO_PRECO_COMPRA, Produto.PRO_ESTOQUE, Produto.PRO_EST_MINIMO, Produto.PRO_SUBGRUPO, 
+                         Grupo_Produto.GRP_NOME, Subgrupo_Produto.SGP_NOME
+FROM            Produto INNER JOIN
+                         Grupo_Produto ON Produto.PRO_GRUPO = Grupo_Produto.GRP_CODIGO LEFT OUTER JOIN
+                         Subgrupo_Produto ON Produto.PRO_SUBGRUPO = Subgrupo_Produto.SGP_CODIGO AND Produto.PRO_GRUPO = Subgrupo_Produto.SGP_GRUPO
+WHERE        (Produto.PRO_GRUPO = @grupo) AND (Produto.PRO_SUBGRUPO = @subgrupo) OR
+                         (Produto.PRO_GRUPO = @grupo) AND (@subgrupo = 0) OR
+                         (Produto.PRO_SUBGRUPO = @subgrupo) AND (@grupo = 0) OR
+                         (@subgrupo = 0) AND (@grupo = 0)
+ORDER BY Produto.PRO_NOME</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="grupo" ColumnName="PRO_GRUPO" DataSourceName="[3Pratos].dbo.Produto" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@grupo" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="PRO_GRUPO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="subgrupo" ColumnName="PRO_SUBGRUPO" DataSourceName="[3Pratos].dbo.Produto" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@subgrupo" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="PRO_SUBGRUPO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="PRO_CODIGO" DataSetColumn="PRO_CODIGO" />
+              <Mapping SourceColumn="PRO_GRUPO" DataSetColumn="PRO_GRUPO" />
+              <Mapping SourceColumn="PRO_INATIVO" DataSetColumn="PRO_INATIVO" />
+              <Mapping SourceColumn="PRO_ULT_COMPRA" DataSetColumn="PRO_ULT_COMPRA" />
+              <Mapping SourceColumn="PRO_NOME" DataSetColumn="PRO_NOME" />
+              <Mapping SourceColumn="PRO_REFERENCIA" DataSetColumn="PRO_REFERENCIA" />
+              <Mapping SourceColumn="PRO_UNIDADE" DataSetColumn="PRO_UNIDADE" />
+              <Mapping SourceColumn="PRO_OBS" DataSetColumn="PRO_OBS" />
+              <Mapping SourceColumn="PRO_PRECO_COMPRA" DataSetColumn="PRO_PRECO_COMPRA" />
+              <Mapping SourceColumn="PRO_ESTOQUE" DataSetColumn="PRO_ESTOQUE" />
+              <Mapping SourceColumn="PRO_EST_MINIMO" DataSetColumn="PRO_EST_MINIMO" />
+              <Mapping SourceColumn="PRO_SUBGRUPO" DataSetColumn="PRO_SUBGRUPO" />
+              <Mapping SourceColumn="GRP_NOME" DataSetColumn="GRP_NOME" />
+              <Mapping SourceColumn="SGP_NOME" DataSetColumn="SGP_NOME" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProdutoXFornecedorTableAdapter" GeneratorDataComponentClassName="ProdutoXFornecedorTableAdapter" Name="ProdutoXFornecedor" UserDataComponentName="ProdutoXFornecedorTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Produtos_Compra.PC_PRODUTO, Produtos_Compra.PC_QTDE, Compra.COM_FORNECEDOR, Compra.COM_DATA, Fornecedor.FOR_NOME, Produto.PRO_NOME, 
+                         Produto.PRO_CODIGO, Fornecedor.FOR_CODIGO, Produtos_Compra.PC_PRECO_COMPRA, Compra.COM_NF
+FROM            Produtos_Compra INNER JOIN
+                         Compra ON Produtos_Compra.PC_COMPRA = Compra.COM_CODIGO INNER JOIN
+                         Produto ON Produtos_Compra.PC_PRODUTO = Produto.PRO_CODIGO INNER JOIN
+                         Fornecedor ON Compra.COM_FORNECEDOR = Fornecedor.FOR_CODIGO
+WHERE        (Fornecedor.FOR_CODIGO = @FORNECEDOR) AND (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND 
+                         @DATA_FINAL) AND (Produto.PRO_CODIGO = @PRODUTO) OR
+                         (Fornecedor.FOR_CODIGO = @FORNECEDOR) AND (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND 
+                         @DATA_FINAL) AND (@PRODUTO = 0) OR
+                         (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND (Produto.PRO_CODIGO = @PRODUTO) AND 
+                         (@FORNECEDOR = 0) OR
+                         (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND (@PRODUTO = 0) AND (@FORNECEDOR = 0)
+ORDER BY Compra.COM_FORNECEDOR</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="FORNECEDOR" ColumnName="FOR_CODIGO" DataSourceName="[3Pratos].dbo.Fornecedor" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@FORNECEDOR" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="FOR_CODIGO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_INICIAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_INICIAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_FINAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_FINAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="PRODUTO" ColumnName="PRO_CODIGO" DataSourceName="[3Pratos].dbo.Produto" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@PRODUTO" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="PRO_CODIGO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="PC_PRODUTO" DataSetColumn="PC_PRODUTO" />
+              <Mapping SourceColumn="PC_QTDE" DataSetColumn="PC_QTDE" />
+              <Mapping SourceColumn="COM_FORNECEDOR" DataSetColumn="COM_FORNECEDOR" />
+              <Mapping SourceColumn="COM_DATA" DataSetColumn="COM_DATA" />
+              <Mapping SourceColumn="FOR_NOME" DataSetColumn="FOR_NOME" />
+              <Mapping SourceColumn="PRO_NOME" DataSetColumn="PRO_NOME" />
+              <Mapping SourceColumn="PRO_CODIGO" DataSetColumn="PRO_CODIGO" />
+              <Mapping SourceColumn="FOR_CODIGO" DataSetColumn="FOR_CODIGO" />
+              <Mapping SourceColumn="PC_PRECO_COMPRA" DataSetColumn="PC_PRECO_COMPRA" />
+              <Mapping SourceColumn="COM_NF" DataSetColumn="COM_NF" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="GrupoProdutoXFornecedorTableAdapter" GeneratorDataComponentClassName="GrupoProdutoXFornecedorTableAdapter" Name="GrupoProdutoXFornecedor" UserDataComponentName="GrupoProdutoXFornecedorTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Produtos_Compra.PC_PRODUTO, Produtos_Compra.PC_QTDE, Compra.COM_FORNECEDOR, Compra.COM_DATA, Fornecedor.FOR_NOME, Produto.PRO_NOME, 
+                         Produto.PRO_CODIGO, Fornecedor.FOR_CODIGO, Produtos_Compra.PC_PRECO_COMPRA, Compra.COM_NF, Produto.PRO_GRUPO, 
+                         Grupo_Produto.GRP_NOME
+FROM            Produtos_Compra INNER JOIN
+                         Compra ON Produtos_Compra.PC_COMPRA = Compra.COM_CODIGO INNER JOIN
+                         Produto ON Produtos_Compra.PC_PRODUTO = Produto.PRO_CODIGO INNER JOIN
+                         Fornecedor ON Compra.COM_FORNECEDOR = Fornecedor.FOR_CODIGO INNER JOIN
+                         Grupo_Produto ON Produto.PRO_GRUPO = Grupo_Produto.GRP_CODIGO
+WHERE        (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND (Produto.PRO_GRUPO = @GRUPO) OR
+                         (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND (@GRUPO = 0)
+ORDER BY Produto.PRO_GRUPO</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_INICIAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_INICIAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_FINAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_FINAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="GRUPO" ColumnName="PRO_GRUPO" DataSourceName="[3Pratos].dbo.Produto" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@GRUPO" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="PRO_GRUPO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="PC_PRODUTO" DataSetColumn="PC_PRODUTO" />
+              <Mapping SourceColumn="PC_QTDE" DataSetColumn="PC_QTDE" />
+              <Mapping SourceColumn="COM_FORNECEDOR" DataSetColumn="COM_FORNECEDOR" />
+              <Mapping SourceColumn="COM_DATA" DataSetColumn="COM_DATA" />
+              <Mapping SourceColumn="FOR_NOME" DataSetColumn="FOR_NOME" />
+              <Mapping SourceColumn="PRO_NOME" DataSetColumn="PRO_NOME" />
+              <Mapping SourceColumn="PRO_CODIGO" DataSetColumn="PRO_CODIGO" />
+              <Mapping SourceColumn="FOR_CODIGO" DataSetColumn="FOR_CODIGO" />
+              <Mapping SourceColumn="PC_PRECO_COMPRA" DataSetColumn="PC_PRECO_COMPRA" />
+              <Mapping SourceColumn="COM_NF" DataSetColumn="COM_NF" />
+              <Mapping SourceColumn="PRO_GRUPO" DataSetColumn="PRO_GRUPO" />
+              <Mapping SourceColumn="GRP_NOME" DataSetColumn="GRP_NOME" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="GrupoXFornecedorXProdutoTableAdapter" GeneratorDataComponentClassName="GrupoXFornecedorXProdutoTableAdapter" Name="GrupoXFornecedorXProduto" UserDataComponentName="GrupoXFornecedorXProdutoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Produtos_Compra.PC_PRODUTO, Produtos_Compra.PC_QTDE, Compra.COM_FORNECEDOR, Compra.COM_DATA, Fornecedor.FOR_NOME, Produto.PRO_NOME, 
+                         Produto.PRO_CODIGO, Fornecedor.FOR_CODIGO, Produtos_Compra.PC_PRECO_COMPRA, Compra.COM_NF, Produto.PRO_GRUPO, 
+                         Grupo_Produto.GRP_NOME
+FROM            Produtos_Compra INNER JOIN
+                         Compra ON Produtos_Compra.PC_COMPRA = Compra.COM_CODIGO INNER JOIN
+                         Produto ON Produtos_Compra.PC_PRODUTO = Produto.PRO_CODIGO INNER JOIN
+                         Fornecedor ON Compra.COM_FORNECEDOR = Fornecedor.FOR_CODIGO INNER JOIN
+                         Grupo_Produto ON Produto.PRO_GRUPO = Grupo_Produto.GRP_CODIGO
+WHERE        (Fornecedor.FOR_CODIGO = @FORNECEDOR) AND (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND 
+                         @DATA_FINAL) AND (Produto.PRO_CODIGO = @PRODUTO) AND (Produto.PRO_GRUPO = @GRUPO) OR
+                         (Fornecedor.FOR_CODIGO = @FORNECEDOR) AND (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND 
+                         @DATA_FINAL) AND (Produto.PRO_GRUPO = @GRUPO) AND (@PRODUTO = 0) OR
+                         (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND (Produto.PRO_CODIGO = @PRODUTO) AND 
+                         (Produto.PRO_GRUPO = @GRUPO) AND (@FORNECEDOR = 0) OR
+                         (Fornecedor.FOR_CODIGO = @FORNECEDOR) AND (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND 
+                         @DATA_FINAL) AND (Produto.PRO_CODIGO = @PRODUTO) AND (@GRUPO = 0) OR
+                         (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND (Produto.PRO_GRUPO = @GRUPO) AND 
+                         (@PRODUTO = 0) AND (@FORNECEDOR = 0) OR
+                         (Fornecedor.FOR_CODIGO = @FORNECEDOR) AND (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND 
+                         @DATA_FINAL) AND (@PRODUTO = 0) AND (@GRUPO = 0) OR
+                         (CAST(FLOOR(CAST(Compra.COM_DATA AS FLOAT)) AS DATETIME) BETWEEN @DATA_INICIAL AND @DATA_FINAL) AND (@PRODUTO = 0) AND (@FORNECEDOR = 0) 
+                         AND (@GRUPO = 0)
+ORDER BY Grupo_Produto.GRP_NOME, Compra.COM_FORNECEDOR, Compra.COM_NF, Produto.PRO_NOME</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="FORNECEDOR" ColumnName="FOR_CODIGO" DataSourceName="[3Pratos].dbo.Fornecedor" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@FORNECEDOR" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="FOR_CODIGO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_INICIAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_INICIAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DATA_FINAL" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@DATA_FINAL" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="PRODUTO" ColumnName="PRO_CODIGO" DataSourceName="[3Pratos].dbo.Produto" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@PRODUTO" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="PRO_CODIGO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="GRUPO" ColumnName="PRO_GRUPO" DataSourceName="[3Pratos].dbo.Produto" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@GRUPO" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="PRO_GRUPO" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="PC_PRODUTO" DataSetColumn="PC_PRODUTO" />
+              <Mapping SourceColumn="PC_QTDE" DataSetColumn="PC_QTDE" />
+              <Mapping SourceColumn="COM_FORNECEDOR" DataSetColumn="COM_FORNECEDOR" />
+              <Mapping SourceColumn="COM_DATA" DataSetColumn="COM_DATA" />
+              <Mapping SourceColumn="FOR_NOME" DataSetColumn="FOR_NOME" />
+              <Mapping SourceColumn="PRO_NOME" DataSetColumn="PRO_NOME" />
+              <Mapping SourceColumn="PRO_CODIGO" DataSetColumn="PRO_CODIGO" />
+              <Mapping SourceColumn="FOR_CODIGO" DataSetColumn="FOR_CODIGO" />
+              <Mapping SourceColumn="PC_PRECO_COMPRA" DataSetColumn="PC_PRECO_COMPRA" />
+              <Mapping SourceColumn="COM_NF" DataSetColumn="COM_NF" />
+              <Mapping SourceColumn="PRO_GRUPO" DataSetColumn="PRO_GRUPO" />
+              <Mapping SourceColumn="GRP_NOME" DataSetColumn="GRP_NOME" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Rel_Contas_Pagar" msprop:Generator_UserTableName="Rel_Contas_Pagar" msprop:Generator_RowEvArgName="Rel_Contas_PagarRowChangeEvent" msprop:Generator_TableVarName="tableRel_Contas_Pagar" msprop:Generator_TablePropName="Rel_Contas_Pagar" msprop:Generator_RowDeletingName="Rel_Contas_PagarRowDeleting" msprop:Generator_RowChangingName="Rel_Contas_PagarRowChanging" msprop:Generator_RowDeletedName="Rel_Contas_PagarRowDeleted" msprop:Generator_TableClassName="Rel_Contas_PagarDataTable" msprop:Generator_RowChangedName="Rel_Contas_PagarRowChanged" msprop:Generator_RowEvHandlerName="Rel_Contas_PagarRowChangeEventHandler" msprop:Generator_RowClassName="Rel_Contas_PagarRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CAP_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCAP_CODIGO" msprop:Generator_ColumnPropNameInRow="CAP_CODIGO" msprop:Generator_ColumnPropNameInTable="CAP_CODIGOColumn" msprop:Generator_UserColumnName="CAP_CODIGO" type="xs:int" />
+              <xs:element name="CAP_FORNECEDOR" msprop:Generator_ColumnVarNameInTable="columnCAP_FORNECEDOR" msprop:Generator_ColumnPropNameInRow="CAP_FORNECEDOR" msprop:Generator_ColumnPropNameInTable="CAP_FORNECEDORColumn" msprop:Generator_UserColumnName="CAP_FORNECEDOR" type="xs:int" minOccurs="0" />
+              <xs:element name="CAP_COMPRA" msprop:Generator_ColumnVarNameInTable="columnCAP_COMPRA" msprop:Generator_ColumnPropNameInRow="CAP_COMPRA" msprop:Generator_ColumnPropNameInTable="CAP_COMPRAColumn" msprop:Generator_UserColumnName="CAP_COMPRA" type="xs:int" minOccurs="0" />
+              <xs:element name="CAP_TOTAL" msprop:Generator_ColumnVarNameInTable="columnCAP_TOTAL" msprop:Generator_ColumnPropNameInRow="CAP_TOTAL" msprop:Generator_ColumnPropNameInTable="CAP_TOTALColumn" msprop:Generator_UserColumnName="CAP_TOTAL" type="xs:double" minOccurs="0" />
+              <xs:element name="CAP_CADASTRO" msprop:Generator_ColumnVarNameInTable="columnCAP_CADASTRO" msprop:Generator_ColumnPropNameInRow="CAP_CADASTRO" msprop:Generator_ColumnPropNameInTable="CAP_CADASTROColumn" msprop:Generator_UserColumnName="CAP_CADASTRO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CAP_OBS" msprop:Generator_ColumnVarNameInTable="columnCAP_OBS" msprop:Generator_ColumnPropNameInRow="CAP_OBS" msprop:Generator_ColumnPropNameInTable="CAP_OBSColumn" msprop:Generator_UserColumnName="CAP_OBS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CAP_LANCAMENTO" msprop:Generator_ColumnVarNameInTable="columnCAP_LANCAMENTO" msprop:Generator_ColumnPropNameInRow="CAP_LANCAMENTO" msprop:Generator_ColumnPropNameInTable="CAP_LANCAMENTOColumn" msprop:Generator_UserColumnName="CAP_LANCAMENTO" type="xs:int" minOccurs="0" />
+              <xs:element name="PCA_CARNE" msprop:Generator_ColumnVarNameInTable="columnPCA_CARNE" msprop:Generator_ColumnPropNameInRow="PCA_CARNE" msprop:Generator_ColumnPropNameInTable="PCA_CARNEColumn" msprop:Generator_UserColumnName="PCA_CARNE" type="xs:int" minOccurs="0" />
+              <xs:element name="PCA_ITEM" msprop:Generator_ColumnVarNameInTable="columnPCA_ITEM" msprop:Generator_ColumnPropNameInRow="PCA_ITEM" msprop:Generator_ColumnPropNameInTable="PCA_ITEMColumn" msprop:Generator_UserColumnName="PCA_ITEM" type="xs:int" minOccurs="0" />
+              <xs:element name="PCA_TIPO" msprop:Generator_ColumnVarNameInTable="columnPCA_TIPO" msprop:Generator_ColumnPropNameInRow="PCA_TIPO" msprop:Generator_ColumnPropNameInTable="PCA_TIPOColumn" msprop:Generator_UserColumnName="PCA_TIPO" type="xs:int" minOccurs="0" />
+              <xs:element name="PCA_NUM_DOC" msprop:Generator_ColumnVarNameInTable="columnPCA_NUM_DOC" msprop:Generator_ColumnPropNameInRow="PCA_NUM_DOC" msprop:Generator_ColumnPropNameInTable="PCA_NUM_DOCColumn" msprop:Generator_UserColumnName="PCA_NUM_DOC" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PCA_OBS" msprop:Generator_ColumnVarNameInTable="columnPCA_OBS" msprop:Generator_ColumnPropNameInRow="PCA_OBS" msprop:Generator_ColumnPropNameInTable="PCA_OBSColumn" msprop:Generator_UserColumnName="PCA_OBS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PCA_VALOR" msprop:Generator_ColumnVarNameInTable="columnPCA_VALOR" msprop:Generator_ColumnPropNameInRow="PCA_VALOR" msprop:Generator_ColumnPropNameInTable="PCA_VALORColumn" msprop:Generator_UserColumnName="PCA_VALOR" type="xs:double" minOccurs="0" />
+              <xs:element name="PCA_VALOR_PAGO" msprop:Generator_ColumnVarNameInTable="columnPCA_VALOR_PAGO" msprop:Generator_ColumnPropNameInRow="PCA_VALOR_PAGO" msprop:Generator_ColumnPropNameInTable="PCA_VALOR_PAGOColumn" msprop:Generator_UserColumnName="PCA_VALOR_PAGO" type="xs:double" minOccurs="0" />
+              <xs:element name="PCA_DATA_PAGTO" msprop:Generator_ColumnVarNameInTable="columnPCA_DATA_PAGTO" msprop:Generator_ColumnPropNameInRow="PCA_DATA_PAGTO" msprop:Generator_ColumnPropNameInTable="PCA_DATA_PAGTOColumn" msprop:Generator_UserColumnName="PCA_DATA_PAGTO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PCA_VENC" msprop:Generator_ColumnVarNameInTable="columnPCA_VENC" msprop:Generator_ColumnPropNameInRow="PCA_VENC" msprop:Generator_ColumnPropNameInTable="PCA_VENCColumn" msprop:Generator_UserColumnName="PCA_VENC" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PCA_ITEM_NOVA_PARC" msprop:Generator_ColumnVarNameInTable="columnPCA_ITEM_NOVA_PARC" msprop:Generator_ColumnPropNameInRow="PCA_ITEM_NOVA_PARC" msprop:Generator_ColumnPropNameInTable="PCA_ITEM_NOVA_PARCColumn" msprop:Generator_UserColumnName="PCA_ITEM_NOVA_PARC" type="xs:int" minOccurs="0" />
+              <xs:element name="FOR_NOME" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFOR_NOME" msprop:Generator_ColumnPropNameInRow="FOR_NOME" msprop:Generator_ColumnPropNameInTable="FOR_NOMEColumn" msprop:Generator_UserColumnName="FOR_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="HIS_DESCRICAO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnHIS_DESCRICAO" msprop:Generator_ColumnPropNameInRow="HIS_DESCRICAO" msprop:Generator_ColumnPropNameInTable="HIS_DESCRICAOColumn" msprop:Generator_UserColumnName="HIS_DESCRICAO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TOTAL_PAGAR" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTOTAL_PAGAR" msprop:Generator_ColumnPropNameInRow="TOTAL_PAGAR" msprop:Generator_ColumnPropNameInTable="TOTAL_PAGARColumn" msprop:Generator_UserColumnName="TOTAL_PAGAR" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_OUT_DESPESAS" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCOM_OUT_DESPESAS" msprop:Generator_ColumnPropNameInRow="COM_OUT_DESPESAS" msprop:Generator_ColumnPropNameInTable="COM_OUT_DESPESASColumn" msprop:Generator_UserColumnName="COM_OUT_DESPESAS" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_FRETE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCOM_FRETE" msprop:Generator_ColumnPropNameInRow="COM_FRETE" msprop:Generator_ColumnPropNameInTable="COM_FRETEColumn" msprop:Generator_UserColumnName="COM_FRETE" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_ACRESCIMO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCOM_ACRESCIMO" msprop:Generator_ColumnPropNameInRow="COM_ACRESCIMO" msprop:Generator_ColumnPropNameInTable="COM_ACRESCIMOColumn" msprop:Generator_UserColumnName="COM_ACRESCIMO" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_DESCONTO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCOM_DESCONTO" msprop:Generator_ColumnPropNameInRow="COM_DESCONTO" msprop:Generator_ColumnPropNameInTable="COM_DESCONTOColumn" msprop:Generator_UserColumnName="COM_DESCONTO" type="xs:double" minOccurs="0" />
+              <xs:element name="PCA_ACRESCIMO" msprop:Generator_ColumnVarNameInTable="columnPCA_ACRESCIMO" msprop:Generator_ColumnPropNameInRow="PCA_ACRESCIMO" msprop:Generator_ColumnPropNameInTable="PCA_ACRESCIMOColumn" msprop:Generator_UserColumnName="PCA_ACRESCIMO" type="xs:double" minOccurs="0" />
+              <xs:element name="PCA_DESCONTO" msprop:Generator_ColumnVarNameInTable="columnPCA_DESCONTO" msprop:Generator_ColumnPropNameInRow="PCA_DESCONTO" msprop:Generator_ColumnPropNameInTable="PCA_DESCONTOColumn" msprop:Generator_UserColumnName="PCA_DESCONTO" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_TOTAL" msprop:Generator_ColumnVarNameInTable="columnCOM_TOTAL" msprop:Generator_ColumnPropNameInRow="COM_TOTAL" msprop:Generator_ColumnPropNameInTable="COM_TOTALColumn" msprop:Generator_UserColumnName="COM_TOTAL" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Rel_Log" msprop:Generator_TableClassName="Rel_LogDataTable" msprop:Generator_RowEvArgName="Rel_LogRowChangeEvent" msprop:Generator_TableVarName="tableRel_Log" msprop:Generator_TablePropName="Rel_Log" msprop:Generator_RowDeletingName="Rel_LogRowDeleting" msprop:Generator_UserTableName="Rel_Log" msprop:Generator_RowChangingName="Rel_LogRowChanging" msprop:Generator_RowDeletedName="Rel_LogRowDeleted" msprop:Generator_RowChangedName="Rel_LogRowChanged" msprop:Generator_RowEvHandlerName="Rel_LogRowChangeEventHandler" msprop:Generator_RowClassName="Rel_LogRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LOG_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnLOG_CODIGO" msprop:Generator_ColumnPropNameInRow="LOG_CODIGO" msprop:Generator_ColumnPropNameInTable="LOG_CODIGOColumn" msprop:Generator_UserColumnName="LOG_CODIGO" type="xs:int" />
+              <xs:element name="LOG_USUARIO" msprop:Generator_ColumnVarNameInTable="columnLOG_USUARIO" msprop:Generator_ColumnPropNameInRow="LOG_USUARIO" msprop:Generator_ColumnPropNameInTable="LOG_USUARIOColumn" msprop:Generator_UserColumnName="LOG_USUARIO" type="xs:int" minOccurs="0" />
+              <xs:element name="LOG_DATA" msprop:Generator_ColumnVarNameInTable="columnLOG_DATA" msprop:Generator_ColumnPropNameInRow="LOG_DATA" msprop:Generator_ColumnPropNameInTable="LOG_DATAColumn" msprop:Generator_UserColumnName="LOG_DATA" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LOG_TELA" msprop:Generator_ColumnVarNameInTable="columnLOG_TELA" msprop:Generator_ColumnPropNameInRow="LOG_TELA" msprop:Generator_ColumnPropNameInTable="LOG_TELAColumn" msprop:Generator_UserColumnName="LOG_TELA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LOG_DESCRICAO" msprop:Generator_ColumnVarNameInTable="columnLOG_DESCRICAO" msprop:Generator_ColumnPropNameInRow="LOG_DESCRICAO" msprop:Generator_ColumnPropNameInTable="LOG_DESCRICAOColumn" msprop:Generator_UserColumnName="LOG_DESCRICAO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FUN_NOME" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFUN_NOME" msprop:Generator_ColumnPropNameInRow="FUN_NOME" msprop:Generator_ColumnPropNameInTable="FUN_NOMEColumn" msprop:Generator_UserColumnName="FUN_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Produto" msprop:Generator_TableClassName="ProdutoDataTable" msprop:Generator_TableVarName="tableProduto" msprop:Generator_TablePropName="Produto" msprop:Generator_RowDeletingName="ProdutoRowDeleting" msprop:Generator_UserTableName="Produto" msprop:Generator_RowChangingName="ProdutoRowChanging" msprop:Generator_RowEvHandlerName="ProdutoRowChangeEventHandler" msprop:Generator_RowDeletedName="ProdutoRowDeleted" msprop:Generator_RowEvArgName="ProdutoRowChangeEvent" msprop:Generator_RowChangedName="ProdutoRowChanged" msprop:Generator_RowClassName="ProdutoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PRO_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnPRO_CODIGO" msprop:Generator_ColumnPropNameInRow="PRO_CODIGO" msprop:Generator_ColumnPropNameInTable="PRO_CODIGOColumn" msprop:Generator_UserColumnName="PRO_CODIGO" type="xs:int" />
+              <xs:element name="PRO_GRUPO" msprop:Generator_ColumnVarNameInTable="columnPRO_GRUPO" msprop:Generator_ColumnPropNameInRow="PRO_GRUPO" msprop:Generator_ColumnPropNameInTable="PRO_GRUPOColumn" msprop:Generator_UserColumnName="PRO_GRUPO" type="xs:int" minOccurs="0" />
+              <xs:element name="PRO_INATIVO" msprop:Generator_ColumnVarNameInTable="columnPRO_INATIVO" msprop:Generator_ColumnPropNameInRow="PRO_INATIVO" msprop:Generator_ColumnPropNameInTable="PRO_INATIVOColumn" msprop:Generator_UserColumnName="PRO_INATIVO" type="xs:int" minOccurs="0" />
+              <xs:element name="PRO_ULT_COMPRA" msprop:Generator_ColumnVarNameInTable="columnPRO_ULT_COMPRA" msprop:Generator_ColumnPropNameInRow="PRO_ULT_COMPRA" msprop:Generator_ColumnPropNameInTable="PRO_ULT_COMPRAColumn" msprop:Generator_UserColumnName="PRO_ULT_COMPRA" type="xs:int" minOccurs="0" />
+              <xs:element name="PRO_NOME" msprop:Generator_ColumnVarNameInTable="columnPRO_NOME" msprop:Generator_ColumnPropNameInRow="PRO_NOME" msprop:Generator_ColumnPropNameInTable="PRO_NOMEColumn" msprop:Generator_UserColumnName="PRO_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_REFERENCIA" msprop:Generator_ColumnVarNameInTable="columnPRO_REFERENCIA" msprop:Generator_ColumnPropNameInRow="PRO_REFERENCIA" msprop:Generator_ColumnPropNameInTable="PRO_REFERENCIAColumn" msprop:Generator_UserColumnName="PRO_REFERENCIA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_UNIDADE" msprop:Generator_ColumnVarNameInTable="columnPRO_UNIDADE" msprop:Generator_ColumnPropNameInRow="PRO_UNIDADE" msprop:Generator_ColumnPropNameInTable="PRO_UNIDADEColumn" msprop:Generator_UserColumnName="PRO_UNIDADE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_OBS" msprop:Generator_ColumnVarNameInTable="columnPRO_OBS" msprop:Generator_ColumnPropNameInRow="PRO_OBS" msprop:Generator_ColumnPropNameInTable="PRO_OBSColumn" msprop:Generator_UserColumnName="PRO_OBS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_PRECO_COMPRA" msprop:Generator_ColumnVarNameInTable="columnPRO_PRECO_COMPRA" msprop:Generator_ColumnPropNameInRow="PRO_PRECO_COMPRA" msprop:Generator_ColumnPropNameInTable="PRO_PRECO_COMPRAColumn" msprop:Generator_UserColumnName="PRO_PRECO_COMPRA" type="xs:double" minOccurs="0" />
+              <xs:element name="PRO_ESTOQUE" msprop:Generator_ColumnVarNameInTable="columnPRO_ESTOQUE" msprop:Generator_ColumnPropNameInRow="PRO_ESTOQUE" msprop:Generator_ColumnPropNameInTable="PRO_ESTOQUEColumn" msprop:Generator_UserColumnName="PRO_ESTOQUE" type="xs:double" minOccurs="0" />
+              <xs:element name="PRO_EST_MINIMO" msprop:Generator_ColumnVarNameInTable="columnPRO_EST_MINIMO" msprop:Generator_ColumnPropNameInRow="PRO_EST_MINIMO" msprop:Generator_ColumnPropNameInTable="PRO_EST_MINIMOColumn" msprop:Generator_UserColumnName="PRO_EST_MINIMO" type="xs:double" minOccurs="0" />
+              <xs:element name="PRO_SUBGRUPO" msprop:Generator_ColumnVarNameInTable="columnPRO_SUBGRUPO" msprop:Generator_ColumnPropNameInRow="PRO_SUBGRUPO" msprop:Generator_ColumnPropNameInTable="PRO_SUBGRUPOColumn" msprop:Generator_UserColumnName="PRO_SUBGRUPO" type="xs:int" minOccurs="0" />
+              <xs:element name="GRP_NOME" msprop:Generator_ColumnVarNameInTable="columnGRP_NOME" msprop:Generator_ColumnPropNameInRow="GRP_NOME" msprop:Generator_ColumnPropNameInTable="GRP_NOMEColumn" msprop:Generator_UserColumnName="GRP_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SGP_NOME" msprop:Generator_ColumnVarNameInTable="columnSGP_NOME" msprop:Generator_ColumnPropNameInRow="SGP_NOME" msprop:Generator_ColumnPropNameInTable="SGP_NOMEColumn" msprop:Generator_UserColumnName="SGP_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ProdutoXFornecedor" msprop:Generator_TableClassName="ProdutoXFornecedorDataTable" msprop:Generator_TableVarName="tableProdutoXFornecedor" msprop:Generator_TablePropName="ProdutoXFornecedor" msprop:Generator_RowDeletingName="ProdutoXFornecedorRowDeleting" msprop:Generator_UserTableName="ProdutoXFornecedor" msprop:Generator_RowChangingName="ProdutoXFornecedorRowChanging" msprop:Generator_RowEvHandlerName="ProdutoXFornecedorRowChangeEventHandler" msprop:Generator_RowDeletedName="ProdutoXFornecedorRowDeleted" msprop:Generator_RowEvArgName="ProdutoXFornecedorRowChangeEvent" msprop:Generator_RowChangedName="ProdutoXFornecedorRowChanged" msprop:Generator_RowClassName="ProdutoXFornecedorRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PC_PRODUTO" msprop:Generator_ColumnVarNameInTable="columnPC_PRODUTO" msprop:Generator_ColumnPropNameInRow="PC_PRODUTO" msprop:Generator_ColumnPropNameInTable="PC_PRODUTOColumn" msprop:Generator_UserColumnName="PC_PRODUTO" type="xs:int" minOccurs="0" />
+              <xs:element name="PC_QTDE" msprop:Generator_ColumnVarNameInTable="columnPC_QTDE" msprop:Generator_ColumnPropNameInRow="PC_QTDE" msprop:Generator_ColumnPropNameInTable="PC_QTDEColumn" msprop:Generator_UserColumnName="PC_QTDE" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_FORNECEDOR" msprop:Generator_ColumnVarNameInTable="columnCOM_FORNECEDOR" msprop:Generator_ColumnPropNameInRow="COM_FORNECEDOR" msprop:Generator_ColumnPropNameInTable="COM_FORNECEDORColumn" msprop:Generator_UserColumnName="COM_FORNECEDOR" type="xs:int" minOccurs="0" />
+              <xs:element name="COM_DATA" msprop:Generator_ColumnVarNameInTable="columnCOM_DATA" msprop:Generator_ColumnPropNameInRow="COM_DATA" msprop:Generator_ColumnPropNameInTable="COM_DATAColumn" msprop:Generator_UserColumnName="COM_DATA" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FOR_NOME" msprop:Generator_ColumnVarNameInTable="columnFOR_NOME" msprop:Generator_ColumnPropNameInRow="FOR_NOME" msprop:Generator_ColumnPropNameInTable="FOR_NOMEColumn" msprop:Generator_UserColumnName="FOR_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_NOME" msprop:Generator_ColumnVarNameInTable="columnPRO_NOME" msprop:Generator_ColumnPropNameInRow="PRO_NOME" msprop:Generator_ColumnPropNameInTable="PRO_NOMEColumn" msprop:Generator_UserColumnName="PRO_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnPRO_CODIGO" msprop:Generator_ColumnPropNameInRow="PRO_CODIGO" msprop:Generator_ColumnPropNameInTable="PRO_CODIGOColumn" msprop:Generator_UserColumnName="PRO_CODIGO" type="xs:int" />
+              <xs:element name="FOR_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnFOR_CODIGO" msprop:Generator_ColumnPropNameInRow="FOR_CODIGO" msprop:Generator_ColumnPropNameInTable="FOR_CODIGOColumn" msprop:Generator_UserColumnName="FOR_CODIGO" type="xs:int" />
+              <xs:element name="PC_PRECO_COMPRA" msprop:Generator_ColumnVarNameInTable="columnPC_PRECO_COMPRA" msprop:Generator_ColumnPropNameInRow="PC_PRECO_COMPRA" msprop:Generator_ColumnPropNameInTable="PC_PRECO_COMPRAColumn" msprop:Generator_UserColumnName="PC_PRECO_COMPRA" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_NF" msprop:Generator_ColumnVarNameInTable="columnCOM_NF" msprop:Generator_ColumnPropNameInRow="COM_NF" msprop:Generator_ColumnPropNameInTable="COM_NFColumn" msprop:Generator_UserColumnName="COM_NF" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GrupoProdutoXFornecedor" msprop:Generator_TableClassName="GrupoProdutoXFornecedorDataTable" msprop:Generator_TableVarName="tableGrupoProdutoXFornecedor" msprop:Generator_TablePropName="GrupoProdutoXFornecedor" msprop:Generator_RowDeletingName="GrupoProdutoXFornecedorRowDeleting" msprop:Generator_UserTableName="GrupoProdutoXFornecedor" msprop:Generator_RowChangingName="GrupoProdutoXFornecedorRowChanging" msprop:Generator_RowEvHandlerName="GrupoProdutoXFornecedorRowChangeEventHandler" msprop:Generator_RowDeletedName="GrupoProdutoXFornecedorRowDeleted" msprop:Generator_RowEvArgName="GrupoProdutoXFornecedorRowChangeEvent" msprop:Generator_RowChangedName="GrupoProdutoXFornecedorRowChanged" msprop:Generator_RowClassName="GrupoProdutoXFornecedorRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PC_PRODUTO" msprop:Generator_ColumnVarNameInTable="columnPC_PRODUTO" msprop:Generator_ColumnPropNameInRow="PC_PRODUTO" msprop:Generator_ColumnPropNameInTable="PC_PRODUTOColumn" msprop:Generator_UserColumnName="PC_PRODUTO" type="xs:int" minOccurs="0" />
+              <xs:element name="PC_QTDE" msprop:Generator_ColumnVarNameInTable="columnPC_QTDE" msprop:Generator_ColumnPropNameInRow="PC_QTDE" msprop:Generator_ColumnPropNameInTable="PC_QTDEColumn" msprop:Generator_UserColumnName="PC_QTDE" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_FORNECEDOR" msprop:Generator_ColumnVarNameInTable="columnCOM_FORNECEDOR" msprop:Generator_ColumnPropNameInRow="COM_FORNECEDOR" msprop:Generator_ColumnPropNameInTable="COM_FORNECEDORColumn" msprop:Generator_UserColumnName="COM_FORNECEDOR" type="xs:int" minOccurs="0" />
+              <xs:element name="COM_DATA" msprop:Generator_ColumnVarNameInTable="columnCOM_DATA" msprop:Generator_ColumnPropNameInRow="COM_DATA" msprop:Generator_ColumnPropNameInTable="COM_DATAColumn" msprop:Generator_UserColumnName="COM_DATA" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FOR_NOME" msprop:Generator_ColumnVarNameInTable="columnFOR_NOME" msprop:Generator_ColumnPropNameInRow="FOR_NOME" msprop:Generator_ColumnPropNameInTable="FOR_NOMEColumn" msprop:Generator_UserColumnName="FOR_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_NOME" msprop:Generator_ColumnVarNameInTable="columnPRO_NOME" msprop:Generator_ColumnPropNameInRow="PRO_NOME" msprop:Generator_ColumnPropNameInTable="PRO_NOMEColumn" msprop:Generator_UserColumnName="PRO_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnPRO_CODIGO" msprop:Generator_ColumnPropNameInRow="PRO_CODIGO" msprop:Generator_ColumnPropNameInTable="PRO_CODIGOColumn" msprop:Generator_UserColumnName="PRO_CODIGO" type="xs:int" />
+              <xs:element name="FOR_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnFOR_CODIGO" msprop:Generator_ColumnPropNameInRow="FOR_CODIGO" msprop:Generator_ColumnPropNameInTable="FOR_CODIGOColumn" msprop:Generator_UserColumnName="FOR_CODIGO" type="xs:int" />
+              <xs:element name="PC_PRECO_COMPRA" msprop:Generator_ColumnVarNameInTable="columnPC_PRECO_COMPRA" msprop:Generator_ColumnPropNameInRow="PC_PRECO_COMPRA" msprop:Generator_ColumnPropNameInTable="PC_PRECO_COMPRAColumn" msprop:Generator_UserColumnName="PC_PRECO_COMPRA" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_NF" msprop:Generator_ColumnVarNameInTable="columnCOM_NF" msprop:Generator_ColumnPropNameInRow="COM_NF" msprop:Generator_ColumnPropNameInTable="COM_NFColumn" msprop:Generator_UserColumnName="COM_NF" type="xs:int" minOccurs="0" />
+              <xs:element name="PRO_GRUPO" msprop:Generator_ColumnVarNameInTable="columnPRO_GRUPO" msprop:Generator_ColumnPropNameInRow="PRO_GRUPO" msprop:Generator_ColumnPropNameInTable="PRO_GRUPOColumn" msprop:Generator_UserColumnName="PRO_GRUPO" type="xs:int" minOccurs="0" />
+              <xs:element name="GRP_NOME" msprop:Generator_ColumnVarNameInTable="columnGRP_NOME" msprop:Generator_ColumnPropNameInRow="GRP_NOME" msprop:Generator_ColumnPropNameInTable="GRP_NOMEColumn" msprop:Generator_UserColumnName="GRP_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GrupoXFornecedorXProduto" msprop:Generator_TableClassName="GrupoXFornecedorXProdutoDataTable" msprop:Generator_TableVarName="tableGrupoXFornecedorXProduto" msprop:Generator_TablePropName="GrupoXFornecedorXProduto" msprop:Generator_RowDeletingName="GrupoXFornecedorXProdutoRowDeleting" msprop:Generator_UserTableName="GrupoXFornecedorXProduto" msprop:Generator_RowChangingName="GrupoXFornecedorXProdutoRowChanging" msprop:Generator_RowEvHandlerName="GrupoXFornecedorXProdutoRowChangeEventHandler" msprop:Generator_RowDeletedName="GrupoXFornecedorXProdutoRowDeleted" msprop:Generator_RowEvArgName="GrupoXFornecedorXProdutoRowChangeEvent" msprop:Generator_RowChangedName="GrupoXFornecedorXProdutoRowChanged" msprop:Generator_RowClassName="GrupoXFornecedorXProdutoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PC_PRODUTO" msprop:Generator_ColumnVarNameInTable="columnPC_PRODUTO" msprop:Generator_ColumnPropNameInRow="PC_PRODUTO" msprop:Generator_ColumnPropNameInTable="PC_PRODUTOColumn" msprop:Generator_UserColumnName="PC_PRODUTO" type="xs:int" minOccurs="0" />
+              <xs:element name="PC_QTDE" msprop:Generator_ColumnVarNameInTable="columnPC_QTDE" msprop:Generator_ColumnPropNameInRow="PC_QTDE" msprop:Generator_ColumnPropNameInTable="PC_QTDEColumn" msprop:Generator_UserColumnName="PC_QTDE" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_FORNECEDOR" msprop:Generator_ColumnVarNameInTable="columnCOM_FORNECEDOR" msprop:Generator_ColumnPropNameInRow="COM_FORNECEDOR" msprop:Generator_ColumnPropNameInTable="COM_FORNECEDORColumn" msprop:Generator_UserColumnName="COM_FORNECEDOR" type="xs:int" minOccurs="0" />
+              <xs:element name="COM_DATA" msprop:Generator_ColumnVarNameInTable="columnCOM_DATA" msprop:Generator_ColumnPropNameInRow="COM_DATA" msprop:Generator_ColumnPropNameInTable="COM_DATAColumn" msprop:Generator_UserColumnName="COM_DATA" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FOR_NOME" msprop:Generator_ColumnVarNameInTable="columnFOR_NOME" msprop:Generator_ColumnPropNameInRow="FOR_NOME" msprop:Generator_ColumnPropNameInTable="FOR_NOMEColumn" msprop:Generator_UserColumnName="FOR_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_NOME" msprop:Generator_ColumnVarNameInTable="columnPRO_NOME" msprop:Generator_ColumnPropNameInRow="PRO_NOME" msprop:Generator_ColumnPropNameInTable="PRO_NOMEColumn" msprop:Generator_UserColumnName="PRO_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRO_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnPRO_CODIGO" msprop:Generator_ColumnPropNameInRow="PRO_CODIGO" msprop:Generator_ColumnPropNameInTable="PRO_CODIGOColumn" msprop:Generator_UserColumnName="PRO_CODIGO" type="xs:int" />
+              <xs:element name="FOR_CODIGO" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnFOR_CODIGO" msprop:Generator_ColumnPropNameInRow="FOR_CODIGO" msprop:Generator_ColumnPropNameInTable="FOR_CODIGOColumn" msprop:Generator_UserColumnName="FOR_CODIGO" type="xs:int" />
+              <xs:element name="PC_PRECO_COMPRA" msprop:Generator_ColumnVarNameInTable="columnPC_PRECO_COMPRA" msprop:Generator_ColumnPropNameInRow="PC_PRECO_COMPRA" msprop:Generator_ColumnPropNameInTable="PC_PRECO_COMPRAColumn" msprop:Generator_UserColumnName="PC_PRECO_COMPRA" type="xs:double" minOccurs="0" />
+              <xs:element name="COM_NF" msprop:Generator_ColumnVarNameInTable="columnCOM_NF" msprop:Generator_ColumnPropNameInRow="COM_NF" msprop:Generator_ColumnPropNameInTable="COM_NFColumn" msprop:Generator_UserColumnName="COM_NF" type="xs:int" minOccurs="0" />
+              <xs:element name="PRO_GRUPO" msprop:Generator_ColumnVarNameInTable="columnPRO_GRUPO" msprop:Generator_ColumnPropNameInRow="PRO_GRUPO" msprop:Generator_ColumnPropNameInTable="PRO_GRUPOColumn" msprop:Generator_UserColumnName="PRO_GRUPO" type="xs:int" minOccurs="0" />
+              <xs:element name="GRP_NOME" msprop:Generator_ColumnVarNameInTable="columnGRP_NOME" msprop:Generator_ColumnPropNameInRow="GRP_NOME" msprop:Generator_ColumnPropNameInTable="GRP_NOMEColumn" msprop:Generator_UserColumnName="GRP_NOME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
