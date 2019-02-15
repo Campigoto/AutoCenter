@@ -8,13 +8,14 @@ operacoe_funcionario - OK
 
 
 
+
 Claudio: Data Source=SONY\sqlexpress;initial catalog=Medical;user ID=sa;Pwd=sql2k5server
 
 Relatorio Produto x Fornecedor : Intervalo de data - Fornecedor - Produto.
 - informando o fornecedor, mostra o relatorio de todos os produtos que ele fornece...
 - informando o produto, mostra todos os fornecedore que fornecdem
 
-produto , ultima compra, ultimo preÁo..
+produto , ultima compra, ultimo pre√ßo..
 
 
 
@@ -37,8 +38,8 @@ Web Access:	http://campigoto_note:8080/tfs/web
 
 *****************************
 Boa noite camarada.
-Segue anexo o projeto com as minhas modificaÁıes, lembrado que alterei v·rios arquivos, desde classe, form, dataset e rdlc.
+Segue anexo o projeto com as minhas modifica√ß√µes, lembrado que alterei v√°rios arquivos, desde classe, form, dataset e rdlc.
 Criar estes dois campos na tabela Parcelas_Pagar: PCA_ACRESCIMO float, PCA_DESCONTO float.
-Amanh„ vou instalar o 'professional team foundation server' pra testar.
+Amanh√£ vou instalar o 'professional team foundation server' pra testar.
 
-AbraÁo.
+Abra√ßo.
