@@ -6,9 +6,6 @@ grupo_produto,ok
 produto, OK
 operacoe_funcionario - OK
 
-
-
-
 Claudio: Data Source=SONY\sqlexpress;initial catalog=Medical;user ID=sa;Pwd=sql2k5server
 
 Relatorio Produto x Fornecedor : Intervalo de data - Fornecedor - Produto.
