@@ -14,6 +14,7 @@ namespace BO
         private string _HIST_PLACA;
         private DateTime _DATA_ENTRADA;
         private DateTime _DATA_ENTREGA;
+        private long _OS_KM_ATUAL;
 
         private StringBuilder _sb;
         private SqlConnection con = new SqlConnection(Connection.ConnectionString);
@@ -48,6 +49,13 @@ namespace BO
 
         public DateTime DATA_ENTRADA { get{ return _DATA_ENTRADA;} set{ _DATA_ENTRADA = value;} }
         public DateTime DATA_ENTREGA { get{ return _DATA_ENTREGA;} set{ _DATA_ENTREGA = value;} }
+
+        public long OS_KM_ATUAL
+        {
+            get { return _OS_KM_ATUAL; }
+            set { _OS_KM_ATUAL = value; } 
+        }
+
         #endregion
 
         #region Constructores
@@ -59,13 +67,14 @@ namespace BO
             this._HIST_ID_OS = os_id;
         }
 
-        public Historico_OS(int hist_id_os, int hist_cliente, string hist_placa, DateTime entrada, DateTime entrega)
+        public Historico_OS(int hist_id_os, int hist_cliente, string hist_placa, DateTime entrada, DateTime entrega, long OS_KM_ATUAL)
         {
             this._HIST_ID_OS = hist_id_os;
             this._HIST_CLIENTE = hist_cliente;
             this._HIST_PLACA = hist_placa;
             this._DATA_ENTRADA = entrada;
             this._DATA_ENTREGA = entrega;
+            this._OS_KM_ATUAL = OS_KM_ATUAL;
         }
         #endregion
 

@@ -28,12 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gb_geral = new System.Windows.Forms.GroupBox();
+            this.lbl_km_prox_troca_correia = new System.Windows.Forms.Label();
+            this.check_atualizar_km_atual_correia = new System.Windows.Forms.CheckBox();
+            this.check_atualizar_km_atual_oleo = new System.Windows.Forms.CheckBox();
+            this.lbl_km_prox_troca = new System.Windows.Forms.Label();
+            this.tb_km_atual = new System.Windows.Forms.MaskedTextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.print_button = new System.Windows.Forms.Button();
             this.add_carro = new System.Windows.Forms.Button();
             this.add_cliente = new System.Windows.Forms.Button();
@@ -76,6 +82,7 @@
             this.PRO_PRECO_VENDA_FORMATADO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Qtd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.observacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gb_geral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_produtos)).BeginInit();
             this.gb_status.SuspendLayout();
@@ -86,6 +93,12 @@
             // 
             // gb_geral
             // 
+            this.gb_geral.Controls.Add(this.lbl_km_prox_troca_correia);
+            this.gb_geral.Controls.Add(this.check_atualizar_km_atual_correia);
+            this.gb_geral.Controls.Add(this.check_atualizar_km_atual_oleo);
+            this.gb_geral.Controls.Add(this.lbl_km_prox_troca);
+            this.gb_geral.Controls.Add(this.tb_km_atual);
+            this.gb_geral.Controls.Add(this.label9);
             this.gb_geral.Controls.Add(this.print_button);
             this.gb_geral.Controls.Add(this.add_carro);
             this.gb_geral.Controls.Add(this.add_cliente);
@@ -109,14 +122,74 @@
             this.gb_geral.Margin = new System.Windows.Forms.Padding(2);
             this.gb_geral.Name = "gb_geral";
             this.gb_geral.Padding = new System.Windows.Forms.Padding(2);
-            this.gb_geral.Size = new System.Drawing.Size(689, 448);
+            this.gb_geral.Size = new System.Drawing.Size(689, 464);
             this.gb_geral.TabIndex = 13;
             this.gb_geral.TabStop = false;
             this.gb_geral.Text = "Ordem de serviço";
             // 
+            // lbl_km_prox_troca_correia
+            // 
+            this.lbl_km_prox_troca_correia.AutoSize = true;
+            this.lbl_km_prox_troca_correia.ForeColor = System.Drawing.Color.Red;
+            this.lbl_km_prox_troca_correia.Location = new System.Drawing.Point(10, 125);
+            this.lbl_km_prox_troca_correia.Name = "lbl_km_prox_troca_correia";
+            this.lbl_km_prox_troca_correia.Size = new System.Drawing.Size(127, 13);
+            this.lbl_km_prox_troca_correia.TabIndex = 19;
+            this.lbl_km_prox_troca_correia.Text = "                              ";
+            // 
+            // check_atualizar_km_atual_correia
+            // 
+            this.check_atualizar_km_atual_correia.AutoSize = true;
+            this.check_atualizar_km_atual_correia.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.check_atualizar_km_atual_correia.Location = new System.Drawing.Point(438, 124);
+            this.check_atualizar_km_atual_correia.Name = "check_atualizar_km_atual_correia";
+            this.check_atualizar_km_atual_correia.Size = new System.Drawing.Size(231, 17);
+            this.check_atualizar_km_atual_correia.TabIndex = 18;
+            this.check_atualizar_km_atual_correia.Text = "Atualizar KM última troca da correia";
+            this.check_atualizar_km_atual_correia.UseVisualStyleBackColor = true;
+            // 
+            // check_atualizar_km_atual_oleo
+            // 
+            this.check_atualizar_km_atual_oleo.AutoSize = true;
+            this.check_atualizar_km_atual_oleo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.check_atualizar_km_atual_oleo.Location = new System.Drawing.Point(436, 104);
+            this.check_atualizar_km_atual_oleo.Name = "check_atualizar_km_atual_oleo";
+            this.check_atualizar_km_atual_oleo.Size = new System.Drawing.Size(233, 17);
+            this.check_atualizar_km_atual_oleo.TabIndex = 17;
+            this.check_atualizar_km_atual_oleo.Text = "Atualizar KM última do troca do óleo";
+            this.check_atualizar_km_atual_oleo.UseVisualStyleBackColor = true;
+            // 
+            // lbl_km_prox_troca
+            // 
+            this.lbl_km_prox_troca.AutoSize = true;
+            this.lbl_km_prox_troca.ForeColor = System.Drawing.Color.Red;
+            this.lbl_km_prox_troca.Location = new System.Drawing.Point(10, 107);
+            this.lbl_km_prox_troca.Name = "lbl_km_prox_troca";
+            this.lbl_km_prox_troca.Size = new System.Drawing.Size(127, 13);
+            this.lbl_km_prox_troca.TabIndex = 16;
+            this.lbl_km_prox_troca.Text = "                              ";
+            // 
+            // tb_km_atual
+            // 
+            this.tb_km_atual.Location = new System.Drawing.Point(542, 78);
+            this.tb_km_atual.Mask = "##########";
+            this.tb_km_atual.Name = "tb_km_atual";
+            this.tb_km_atual.Size = new System.Drawing.Size(126, 21);
+            this.tb_km_atual.TabIndex = 15;
+            this.tb_km_atual.TextChanged += new System.EventHandler(this.tb_km_atual_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(474, 81);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "KM Atual:";
+            // 
             // print_button
             // 
-            this.print_button.Location = new System.Drawing.Point(546, 332);
+            this.print_button.Location = new System.Drawing.Point(589, 349);
             this.print_button.Margin = new System.Windows.Forms.Padding(2);
             this.print_button.Name = "print_button";
             this.print_button.Size = new System.Drawing.Size(80, 43);
@@ -153,7 +226,7 @@
             // 
             // tb_remover
             // 
-            this.tb_remover.Location = new System.Drawing.Point(546, 284);
+            this.tb_remover.Location = new System.Drawing.Point(589, 301);
             this.tb_remover.Margin = new System.Windows.Forms.Padding(2);
             this.tb_remover.Name = "tb_remover";
             this.tb_remover.Size = new System.Drawing.Size(80, 43);
@@ -164,7 +237,7 @@
             // 
             // tb_adicionar
             // 
-            this.tb_adicionar.Location = new System.Drawing.Point(546, 236);
+            this.tb_adicionar.Location = new System.Drawing.Point(589, 253);
             this.tb_adicionar.Margin = new System.Windows.Forms.Padding(2);
             this.tb_adicionar.Name = "tb_adicionar";
             this.tb_adicionar.Size = new System.Drawing.Size(80, 43);
@@ -176,7 +249,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 110);
+            this.label5.Location = new System.Drawing.Point(10, 142);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(131, 13);
@@ -186,7 +259,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 218);
+            this.label4.Location = new System.Drawing.Point(10, 235);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 13);
@@ -195,7 +268,7 @@
             // 
             // tb_obs
             // 
-            this.tb_obs.Location = new System.Drawing.Point(12, 126);
+            this.tb_obs.Location = new System.Drawing.Point(12, 158);
             this.tb_obs.Margin = new System.Windows.Forms.Padding(2);
             this.tb_obs.Multiline = true;
             this.tb_obs.Name = "tb_obs";
@@ -212,13 +285,14 @@
             this.PRO_NOME,
             this.PRO_PRECO_VENDA_FORMATADO,
             this.Qtd,
-            this.total});
-            this.dgv_produtos.Location = new System.Drawing.Point(12, 236);
+            this.total,
+            this.observacao});
+            this.dgv_produtos.Location = new System.Drawing.Point(12, 253);
             this.dgv_produtos.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_produtos.Name = "dgv_produtos";
             this.dgv_produtos.RowHeadersVisible = false;
             this.dgv_produtos.RowTemplate.Height = 24;
-            this.dgv_produtos.Size = new System.Drawing.Size(508, 203);
+            this.dgv_produtos.Size = new System.Drawing.Size(573, 203);
             this.dgv_produtos.TabIndex = 5;
             this.dgv_produtos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_produtos_CellClick);
             this.dgv_produtos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_produtos_CellDoubleClick);
@@ -278,7 +352,7 @@
             // 
             // tb_data_entrega
             // 
-            this.tb_data_entrega.Location = new System.Drawing.Point(554, 78);
+            this.tb_data_entrega.Location = new System.Drawing.Point(356, 78);
             this.tb_data_entrega.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_data_entrega.Mask = "00/00/0000";
             this.tb_data_entrega.Name = "tb_data_entrega";
@@ -289,15 +363,15 @@
             // lbl_data
             // 
             this.lbl_data.AutoSize = true;
-            this.lbl_data.Location = new System.Drawing.Point(374, 81);
+            this.lbl_data.Location = new System.Drawing.Point(235, 81);
             this.lbl_data.Name = "lbl_data";
-            this.lbl_data.Size = new System.Drawing.Size(116, 13);
+            this.lbl_data.Size = new System.Drawing.Size(115, 13);
             this.lbl_data.TabIndex = 0;
             this.lbl_data.Text = "Data Prev. Entrega";
             // 
             // tb_data_entrada
             // 
-            this.tb_data_entrada.Location = new System.Drawing.Point(203, 78);
+            this.tb_data_entrada.Location = new System.Drawing.Point(107, 78);
             this.tb_data_entrada.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_data_entrada.Mask = "00/00/0000";
             this.tb_data_entrada.Name = "tb_data_entrada";
@@ -404,7 +478,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(20, 106);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 13);
+            this.label8.Size = new System.Drawing.Size(72, 13);
             this.label8.TabIndex = 0;
             this.label8.Text = "Valor Total:";
             // 
@@ -422,7 +496,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(20, 36);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 13);
+            this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "Valor:";
             // 
@@ -451,7 +525,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dgv_historico);
-            this.groupBox1.Location = new System.Drawing.Point(722, 305);
+            this.groupBox1.Location = new System.Drawing.Point(722, 317);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -483,8 +557,8 @@
             // ID_OS
             // 
             this.ID_OS.DataPropertyName = "HIST_ID_OS";
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ID_OS.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ID_OS.DefaultCellStyle = dataGridViewCellStyle1;
             this.ID_OS.HeaderText = "OS";
             this.ID_OS.Name = "ID_OS";
             this.ID_OS.Width = 35;
@@ -492,8 +566,8 @@
             // CLIENTE
             // 
             this.CLIENTE.DataPropertyName = "NOME_CLIENTE";
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CLIENTE.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CLIENTE.DefaultCellStyle = dataGridViewCellStyle2;
             this.CLIENTE.HeaderText = "Cliente";
             this.CLIENTE.Name = "CLIENTE";
             this.CLIENTE.Width = 180;
@@ -501,8 +575,8 @@
             // PLACA
             // 
             this.PLACA.DataPropertyName = "HIST_PLACA";
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PLACA.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PLACA.DefaultCellStyle = dataGridViewCellStyle3;
             this.PLACA.HeaderText = "Placa";
             this.PLACA.Name = "PLACA";
             this.PLACA.Visible = false;
@@ -511,8 +585,8 @@
             // data_entrada
             // 
             this.data_entrada.DataPropertyName = "DATA_ENTRADA";
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.data_entrada.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.data_entrada.DefaultCellStyle = dataGridViewCellStyle4;
             this.data_entrada.HeaderText = "Entrada";
             this.data_entrada.Name = "data_entrada";
             this.data_entrada.Width = 55;
@@ -520,8 +594,8 @@
             // data_entrega
             // 
             this.data_entrega.DataPropertyName = "DATA_ENTREGA";
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.data_entrega.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.data_entrega.DefaultCellStyle = dataGridViewCellStyle5;
             this.data_entrega.HeaderText = "Entrega";
             this.data_entrega.Name = "data_entrega";
             this.data_entrega.Width = 55;
@@ -540,7 +614,7 @@
             this.PRO_NOME.HeaderText = "Produto";
             this.PRO_NOME.Name = "PRO_NOME";
             this.PRO_NOME.ReadOnly = true;
-            this.PRO_NOME.Width = 300;
+            this.PRO_NOME.Width = 280;
             // 
             // PRO_PRECO_VENDA_FORMATADO
             // 
@@ -563,6 +637,12 @@
             this.total.Name = "total";
             this.total.ReadOnly = true;
             this.total.Width = 70;
+            // 
+            // observacao
+            // 
+            this.observacao.HeaderText = "Observação";
+            this.observacao.Name = "observacao";
+            this.observacao.Width = 120;
             // 
             // Frm_OS
             // 
@@ -634,10 +714,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn data_entrada;
         private System.Windows.Forms.DataGridViewTextBoxColumn data_entrega;
         private System.Windows.Forms.Button print_button;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.MaskedTextBox tb_km_atual;
+        private System.Windows.Forms.Label lbl_km_prox_troca;
+        private System.Windows.Forms.CheckBox check_atualizar_km_atual_oleo;
+        private System.Windows.Forms.CheckBox check_atualizar_km_atual_correia;
+        private System.Windows.Forms.Label lbl_km_prox_troca_correia;
         private System.Windows.Forms.DataGridViewTextBoxColumn PRO_CODIGO;
         private System.Windows.Forms.DataGridViewTextBoxColumn PRO_NOME;
         private System.Windows.Forms.DataGridViewTextBoxColumn PRO_PRECO_VENDA_FORMATADO;
         private System.Windows.Forms.DataGridViewTextBoxColumn Qtd;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
+        private System.Windows.Forms.DataGridViewTextBoxColumn observacao;
     }
 }

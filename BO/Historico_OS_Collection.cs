@@ -14,6 +14,7 @@ namespace BO
         private int _HIST_ID_OS;
         private int _HIST_CLIENTE;
         private string _HIST_PLACA;
+        private string _OS_KM_ATUAL;
         private StringBuilder _sb;
         private LoadHistOs _typeLoad;
         private SqlCommand cmd;
@@ -44,7 +45,7 @@ namespace BO
             {
                 this._sb = new StringBuilder();
 
-                this._sb.Append(" SELECT HIST_ID_OS, HIST_CLIENTE, HIST_PLACA , OS_DATA_ENTRADA, OS_DATA_ENTREGA FROM HISTORICO INNER JOIN ORDEM_SERVICO ON HIST_ID_OS = OS_ID ");
+                this._sb.Append(" SELECT HIST_ID_OS, HIST_CLIENTE, HIST_PLACA , OS_DATA_ENTRADA, OS_DATA_ENTREGA, OS_KM_ATUAL FROM HISTORICO INNER JOIN ORDEM_SERVICO ON HIST_ID_OS = OS_ID ");
                 switch (this._typeLoad)
                 {
 
@@ -92,7 +93,8 @@ namespace BO
                                                 dr.IsDBNull(1) ? 0 : dr.GetSqlInt32(1).Value, // HIST_CLIENTE                           
                                                 dr.IsDBNull(2) ? "" : dr.GetSqlString(2).Value, // HIST_PLACA 
                                                 dr.IsDBNull(3) ? DateTime.Today : dr.GetSqlDateTime(3).Value, //DATA_ENTRADA
-                                                dr.IsDBNull(4) ? new DateTime(1900,01,01) : dr.GetSqlDateTime(4).Value
+                                                dr.IsDBNull(4) ? new DateTime(1900,01,01) : dr.GetSqlDateTime(4).Value,
+                                                dr.IsDBNull(5) ? 0 : dr.GetSqlInt64(5).Value
                                                 ));
                 }
             }

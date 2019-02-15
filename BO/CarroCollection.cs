@@ -36,20 +36,30 @@ namespace BO
 
         #endregion
 
-
         #region Methods
         private void Load()
         {
             try
             {
+                string query = @"SELECT CAR_ID, 
+                                    CAR_PLACA, 
+                                    CAR_MARCA, 
+                                    CAR_MODELO, 
+                                    CAR_COR, 
+                                    CAR_ANO, 
+                                    CAR_KM_CADA_TROCA_OLEO, 
+                                    CAR_KM_ULTIMA_TROCA_OLEO,
+                                    CAR_KM_CADA_TROCA_CORREIA, 
+                                    CAR_KM_ULTIMA_TROCA_CORREIA 
+                                FROM CARRO ";
                 switch (this._typeLoad)
                 {
                     case CarroLoadType.LoadAll:
-                        this.cmd = new SqlCommand("SELECT CAR_ID, CAR_PLACA, CAR_MARCA,CAR_MODELO,CAR_COR,CAR_ANO FROM CARRO " + Order(), this.con);
+                        this.cmd = new SqlCommand(query + Order(), this.con);
                         cmd.CommandType = CommandType.Text;
                         break;
                     case CarroLoadType.LoadById:
-                        this.cmd = new SqlCommand("SELECT CAR_ID, CAR_PLACA, CAR_MARCA,CAR_MODELO,CAR_COR,CAR_ANO FROM CARRO WHERE CAR_ID = @CAR_ID " + Order(), this.con);
+                        this.cmd = new SqlCommand(query + " WHERE CAR_ID = @CAR_ID " + Order(), this.con);
                         this.cmd.CommandType = CommandType.Text;
                         this.cmd.Parameters.Add("@CAR_ID", SqlDbType.Int);
                         this.cmd.Parameters[0].Value = this._CAR_ID;
@@ -66,7 +76,11 @@ namespace BO
                                         dr.IsDBNull(2) ? "" : dr.GetSqlString(2).Value,
                                         dr.IsDBNull(3) ? "" : dr.GetSqlString(3).Value,
                                         dr.IsDBNull(4) ? "" : dr.GetSqlString(4).Value,
-                                        dr.IsDBNull(5) ? 0  : dr.GetSqlInt32(5).Value
+                                        dr.IsDBNull(5) ? 0  : dr.GetSqlInt32(5).Value,
+                                        dr.IsDBNull(6) ? 0 : dr.GetSqlInt64(6).Value,
+                                        dr.IsDBNull(7) ? 0 : dr.GetSqlInt64(7).Value,
+                                        dr.IsDBNull(8) ? 0 : dr.GetSqlInt64(8).Value,
+                                        dr.IsDBNull(9) ? 0 : dr.GetSqlInt64(9).Value
                                        )
                             );
                 }

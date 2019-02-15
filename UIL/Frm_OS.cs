@@ -14,6 +14,8 @@ namespace UIL
 
         private int SelectedRow = 0;
 
+        private CarroCollection carCol;
+        
         public Frm_OS()
         {
             InitializeComponent();
@@ -21,14 +23,18 @@ namespace UIL
             gb_geral.Text = Titulo_Grupo("Ordem de Serviço");
             tb_data_entrada.Text = (DateTime.Today).ToString();
 
-            CarregarClientes();
-            CarregarCarros();
             rb_aguarda.Checked = true;
             Global.NUM_OS = 0;
 
             print_button.Enabled = false;
         }
 
+        override protected void OnShown(EventArgs e)
+        {
+            CarregarClientes();
+            CarregarCarros();
+        }
+        
         #region Methods
 
         private void CarregarClientes()
@@ -51,7 +57,7 @@ namespace UIL
 
         private void CarregarCarros()
         {
-            CarroCollection carCol = new CarroCollection();
+            carCol = new CarroCollection();
             CarroCollection carros = new CarroCollection(true, 1);
             Carro car = new Carro();
 
@@ -237,21 +243,22 @@ namespace UIL
                 os.OS_DATA_ENTREGA = tb_data_entrega.Text.Trim() != "/  /" ? DateTime.Parse(tb_data_entrega.Text) : DateTime.Parse("01/01/1900");
                 os.OS_OBS = tb_obs.Text;
                 os.OS_VALOR_TOTAL = double.Parse(tb_total.Text);
+                os.OS_KM_ATUAL = tb_km_atual.Text != "" ? long.Parse(tb_km_atual.Text) : 0;
                 os.salvar();
 
                 Historico_OS historico = new Historico_OS();
                 historico.HIST_ID_OS = os.OS_ID;
                 historico.HIST_CLIENTE = int.Parse(cb_cliente.SelectedValue.ToString());
                 historico.HIST_PLACA = cb_carro.SelectedValue.ToString();
-
                 historico.Salvar();
 
-
                 Detalhes_OS detail = new Detalhes_OS();
+
                 if (Global.NUM_OS != 0)
                 {
                     detail.delete();
                 }
+
                 for (int i = 0; i < dgv_produtos.RowCount; i++)
                 {
                     detail.DET_OS_ID = os.OS_ID;
@@ -260,7 +267,26 @@ namespace UIL
                     detail.DET_VALOR_TOTAL = double.Parse(tb_total.Text);
                     detail.DET_VALOR_UNIT = double.Parse(dgv_produtos["PRO_PRECO_VENDA_FORMATADO", i].Value.ToString());
                     detail.DET_DESCONTO = tb_desconto.Text == "" ? 0 : double.Parse(tb_desconto.Text);
+
+                    String observacao = (String)dgv_produtos["observacao", i].Value;
+                    if (observacao == null)
+                        observacao = "";
+
+                    detail.OBSERVACAO = observacao;
                     detail.save();
+                }
+
+                if (check_atualizar_km_atual_oleo.Checked || check_atualizar_km_atual_correia.Checked) 
+                {
+                    Carro carro = carCol.Find(c => c.CAR_PLACA == cb_carro.SelectedValue.ToString());
+
+                    if (check_atualizar_km_atual_oleo.Checked)
+                        carro.CAR_KM_ULTIMA_TROCA_OLEO = tb_km_atual.Text == "" ? 0 : long.Parse(tb_km_atual.Text);
+                    
+                    if (check_atualizar_km_atual_correia.Checked)
+                        carro.CAR_KM_ULTIMA_TROCA_CORREIA = tb_km_atual.Text == "" ? 0 : long.Parse(tb_km_atual.Text);
+
+                    carro.Salvar();
                 }
 
                 MessageBox.Show("Cadastro efetuado com sucesso!", "Joincar", MessageBoxButtons.OK);
@@ -273,46 +299,16 @@ namespace UIL
                 }
                 print_button.Enabled = false;
 
-                string SqlVenda = "BEGIN TRANSACTION ";
+                
                 for (int i = 0; i < dgv_produtos.RowCount; i++)
                 {
-                    double qtd = double.Parse(dgv_produtos["Qtd", i].Value.ToString());
+                    float qtd = float.Parse(dgv_produtos["Qtd", i].Value.ToString());
                     int cod_prod = int.Parse(dgv_produtos["PRO_CODIGO", i].Value.ToString());
-                    SqlVenda += string.Format(@" IF (SELECT 1 FROM Produto WHERE PRO_CODIGO = {0} AND (PRO_ESTOQUE - {1}) >= 0) = 1
-	                                            BEGIN
-		                                            UPDATE Produto SET PRO_ESTOQUE = (PRO_ESTOQUE - {1}) WHERE PRO_CODIGO = {0}
-		                                            SELECT 1 as Aviso
-                                                    RETURN
-	                                            END
-                                            ELSE
-	                                            BEGIN 
-		                                            SELECT 0 as Aviso
-                                                    ROLLBACK TRANSACTION
-                                                    RETURN
-	                                            END", cod_prod, qtd);
-                }
-
-                SqlVenda += " COMMIT TRANSACTION ";
-
-
-                if (detail.BaixaEstoque(SqlVenda) == 0)
-                {
-                    MessageBox.Show("Não há produto suficiente para esta transação!", "Joincar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else 
-                {
-                    for (int i = 0; i < dgv_produtos.RowCount; i++)
-                    {
-                        float qtd = float.Parse(dgv_produtos["Qtd", i].Value.ToString());
-                        int cod_prod = int.Parse(dgv_produtos["PRO_CODIGO", i].Value.ToString());
-                        Produto produto = new Produto(cod_prod);
-                        produto.PRO_ESTOQUE -= qtd;
-                        produto.Salvar();   
-                    }
+                    Produto produto = new Produto(cod_prod);
+                    produto.PRO_ESTOQUE -= qtd;
+                    produto.Salvar();   
                 }
                    
-               
-            
                 //Depois de salvar, volta tudo ao padrão
                 cb_cliente.SelectedIndex = 0;
                 cb_carro.SelectedIndex = 0;
@@ -323,6 +319,8 @@ namespace UIL
                 tb_data_entrega.Text = "";
                 tb_obs.Text = "";
                 tb_desconto.Text = "";
+                tb_km_atual.Text = "";
+                check_atualizar_km_atual_oleo.Checked = false;
 
                 dgv_historico.DataSource = null;
                 dgv_produtos.DataSource = null;
@@ -330,10 +328,31 @@ namespace UIL
                 dgv_historico.Rows.Clear();
 
             }
-            catch
+            catch (Exception ex)
             {
                 showMessage("Falha ao salvar Ordem de Serviço");
             }
+        }
+
+        private void calcularProximaTrocaOleo()
+        {
+            if (!(cb_carro.SelectedValue.ToString().Contains("BO.Carro") || cb_carro.SelectedValue.ToString().Contains("Escolha um carro")))
+            {
+                Carro car = carCol.Find(c => c.CAR_PLACA == cb_carro.SelectedValue);
+                long km_prox_troca = car.CAR_KM_ULTIMA_TROCA_OLEO + car.CAR_KM_CADA_TROCA_OLEO;
+                long km_prox_troca_correia = car.CAR_KM_ULTIMA_TROCA_CORREIA + car.CAR_KM_CADA_TROCA_CORREIA;
+
+                long km_atual = 0;
+                Int64.TryParse(tb_km_atual.Text, out km_atual);
+                lbl_km_prox_troca.Text = "Faltam " + (km_prox_troca - km_atual) + " para próxima troca de óleo";
+                lbl_km_prox_troca_correia.Text = "Faltam " + (km_prox_troca_correia - km_atual) + " para próxima troca da correia";
+            }
+            else
+            {
+                lbl_km_prox_troca.Text = "";
+                lbl_km_prox_troca_correia.Text = "";
+            }
+            
         }
 
         private void cb_carro_SelectedIndexChanged(object sender, EventArgs e)
@@ -342,8 +361,14 @@ namespace UIL
             {
                 string placa = cb_carro.SelectedValue == null ? "" : cb_carro.SelectedValue.ToString();
                 Historico_OS_Collection historico = new Historico_OS_Collection(placa, LoadHistOs.LoadByPlaca);
+
+                if (historico.Count > 0)
+                    tb_km_atual.Text = historico[historico.Count - 1].OS_KM_ATUAL.ToString();
+
                 dgv_historico.AutoGenerateColumns = false;
                 dgv_historico.DataSource = historico;
+
+                calcularProximaTrocaOleo();
             }
 
             Global.NUM_OS = 0;
@@ -365,6 +390,7 @@ namespace UIL
                 tb_obs.Text = det.DET_OBS;
                 tb_data_entrada.Text = det.DET_DATA_ENTRADA.ToString();
                 tb_data_entrega.Text = det.DET_DATA_ENTREGA != new DateTime(1900, 01, 01) ? det.DET_DATA_ENTREGA.ToString() : "";
+                tb_km_atual.Text = det.DET_KM_ATUAL.ToString();
 
                 switch (det.DET_STATUS)
                 {
@@ -381,9 +407,11 @@ namespace UIL
 
 
                 Produto prod = new Produto(det.DET_PRODUTO);
-                dgv_produtos.Rows.Add(prod.PRO_CODIGO, prod.PRO_NOME, det.DET_VALOR_UNIT, det.DET_QTD, (det.DET_VALOR_UNIT * det.DET_QTD));
+                dgv_produtos.Rows.Add(prod.PRO_CODIGO, prod.PRO_NOME, det.DET_VALOR_UNIT, det.DET_QTD, (det.DET_VALOR_UNIT * det.DET_QTD), det.OBSERVACAO);
 
                 print_button.Enabled = true;
+
+                calcularProximaTrocaOleo();
 
             }
         }
@@ -427,7 +455,11 @@ namespace UIL
             }
         }
 
-
+        private void tb_km_atual_TextChanged(object sender, EventArgs e)
+        {
+            calcularProximaTrocaOleo();
+        }
+        
 
     }
 }

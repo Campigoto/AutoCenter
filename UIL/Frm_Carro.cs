@@ -30,11 +30,6 @@ namespace UIL
             dgv_carro.DataSource = carros;
         }
 
-        private void Carregar_Carros(int CAR_ID)
-        { 
-        
-        }
-
         private void btn_carro_gravar(object sender, EventArgs e)
         {
             Carro car = new Carro(tb_placa.Text);
@@ -50,6 +45,10 @@ namespace UIL
             car.CAR_MARCA = this.tb_marca.Text;
             car.CAR_COR = this.tb_cor.Text;
             car.CAR_ANO = this.tb_ano.Text == "" ? 0 : int.Parse(this.tb_ano.Text.ToString());
+            car.CAR_KM_ULTIMA_TROCA_OLEO = this.tb_km_ultima_troca.Text == "" ? 0 : long.Parse(this.tb_km_ultima_troca.Text);
+            car.CAR_KM_CADA_TROCA_OLEO = this.tb_cada_troca.Text == "" ? 0 : long.Parse(this.tb_cada_troca.Text);
+            car.CAR_KM_ULTIMA_TROCA_CORREIA = this.tb_ultima_troca_correia.Text == "" ? 0 : long.Parse(this.tb_ultima_troca_correia.Text);
+            car.CAR_KM_CADA_TROCA_CORREIA = this.tb_cada_troca_correia.Text == "" ? 0 : long.Parse(this.tb_cada_troca_correia.Text);
             car.Salvar();
 
             Carregar_Carros();
@@ -121,6 +120,8 @@ namespace UIL
                 this.tb_ano.Text = dgv_carro.Rows[e.RowIndex].Cells["Ano"].Value.ToString();
                 this.tb_cor.Text = dgv_carro.Rows[e.RowIndex].Cells["Cor"].Value.ToString();
                 this.tb_marca.Text = dgv_carro.Rows[e.RowIndex].Cells["Marca"].Value.ToString();
+                this.tb_km_ultima_troca.Text = dgv_carro.Rows[e.RowIndex].Cells["ultima_troca"].Value.ToString();
+                this.tb_cada_troca.Text = dgv_carro.Rows[e.RowIndex].Cells["cada_troca"].Value.ToString();
             }
             else
             {
@@ -158,8 +159,33 @@ namespace UIL
             this.tb_marca.Text = "";
             this.tb_cor.Text = "";
             this.tb_ano.Text = "";
+            this.tb_cada_troca.Text = "";
+            this.tb_km_ultima_troca.Text = "";
+            this.tb_cada_troca_correia.Text = "";
+            this.tb_ultima_troca_correia.Text = "";
 
             Global.CAR_ID = 0;
+        }
+
+        private void tb_placa_TextChanged(object sender, EventArgs e)
+        {
+            string placa = this.tb_placa.Text;
+            if (placa == "")
+                return;
+
+            Carro car = new Carro();
+            car.CAR_PLACA = placa;
+            car.Carregar();
+
+            this.tb_placa.Text = car.CAR_PLACA;
+            this.tb_modelo.Text = car.CAR_MODELO;
+            this.tb_marca.Text = car.CAR_MARCA;
+            this.tb_cor.Text = car.CAR_COR;
+            this.tb_ano.Text = car.CAR_ANO.ToString();
+            this.tb_km_ultima_troca.Text = car.CAR_KM_ULTIMA_TROCA_OLEO.ToString();
+            this.tb_cada_troca.Text = car.CAR_KM_CADA_TROCA_OLEO.ToString();
+            this.tb_cada_troca_correia.Text = car.CAR_KM_CADA_TROCA_CORREIA.ToString(); ;
+            this.tb_ultima_troca_correia.Text = car.CAR_KM_ULTIMA_TROCA_CORREIA.ToString(); ;
         }
     }
 }

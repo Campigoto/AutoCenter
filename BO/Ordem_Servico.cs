@@ -17,6 +17,7 @@ namespace BO
             private double _OS_VALOR_TOTAL;
             private string _OS_OBS;
             private int _OS_STATUS;
+            private long _OS_KM_ATUAL;
 
             private StringBuilder _sb;
             private SqlConnection con = new SqlConnection(Connection.ConnectionString);
@@ -63,6 +64,13 @@ namespace BO
                 get { return _OS_STATUS; }
                 set { _OS_STATUS = value; }
             }
+
+            public long OS_KM_ATUAL
+            {
+                get { return _OS_KM_ATUAL; }
+                set { _OS_KM_ATUAL = value; }
+            }
+            
         #endregion
 
         #region Constructors
@@ -82,7 +90,7 @@ namespace BO
                 try
                 {
                     this._sb = new StringBuilder();
-                    _sb.Append(" SELECT OS_ID, OS_CLIENTE,OS_PLACA,OS_DATA_ENTRADA, OS_DATA_ENTREGA, OS_VALOR_TOTAL, OS_OBS, OS_STATUS FROM ORDEM_SERVICO ");
+                    _sb.Append(" SELECT OS_ID, OS_CLIENTE,OS_PLACA,OS_DATA_ENTRADA, OS_DATA_ENTREGA, OS_VALOR_TOTAL, OS_OBS, OS_STATUS, OS_KM_ATUAL FROM ORDEM_SERVICO ");
 
                     if(_OS_ID != null ) this._sb.Append(" WHERE OS_ID = @OS_ID ");
 
@@ -111,6 +119,7 @@ namespace BO
                         this._OS_VALOR_TOTAL = dr.IsDBNull(5) ? 0 : dr.GetSqlDouble(5).Value;
                         this._OS_OBS = dr.IsDBNull(6) ? "" : dr.GetSqlString(6).Value;
                         this._OS_STATUS = dr.IsDBNull(7) ? -1 : dr.GetSqlInt32(7).Value;
+                        this._OS_KM_ATUAL = dr.IsDBNull(8) ? 0 : dr.GetSqlInt64(8).Value;
                     }
                     else
                     {
@@ -135,14 +144,14 @@ namespace BO
                     this._sb = new StringBuilder();
                     if (Global.NUM_OS != 0)
                     {
-                        this._sb.Append(" UPDATE ORDEM_SERVICO SET OS_CLIENTE = @OS_CLIENTE , OS_PLACA = @OS_PLACA, OS_DATA_ENTRADA = @OS_DATA_ENTRADA ");
+                        this._sb.Append(" UPDATE ORDEM_SERVICO SET OS_CLIENTE = @OS_CLIENTE , OS_PLACA = @OS_PLACA, OS_DATA_ENTRADA = @OS_DATA_ENTRADA, OS_KM_ATUAL = @OS_KM_ATUAL ");
                         this._sb.Append(" ,OS_DATA_ENTREGA = @OS_DATA_ENTREGA, OS_VALOR_TOTAL = @OS_VALOR_TOTAL, OS_OBS = @OS_OBS, OS_STATUS = @OS_STATUS ");
                         this._sb.Append(" WHERE OS_ID = " + Global.NUM_OS + " ");
                     }
                     else
-                    { 
-                        this._sb.Append(" INSERT INTO ORDEM_SERVICO (OS_CLIENTE,OS_PLACA,OS_DATA_ENTRADA, OS_DATA_ENTREGA, OS_VALOR_TOTAL, OS_OBS, OS_STATUS) ");
-                        this._sb.Append(" VALUES (@OS_CLIENTE, @OS_PLACA, @OS_DATA_ENTRADA, @OS_DATA_ENTREGA ,@OS_VALOR_TOTAL ,@OS_OBS ,@OS_STATUS) ");
+                    {
+                        this._sb.Append(" INSERT INTO ORDEM_SERVICO (OS_CLIENTE,OS_PLACA,OS_DATA_ENTRADA, OS_DATA_ENTREGA, OS_VALOR_TOTAL, OS_OBS, OS_STATUS, OS_KM_ATUAL) ");
+                        this._sb.Append(" VALUES (@OS_CLIENTE, @OS_PLACA, @OS_DATA_ENTRADA, @OS_DATA_ENTREGA ,@OS_VALOR_TOTAL ,@OS_OBS ,@OS_STATUS, @OS_KM_ATUAL) ");
                         this._sb.Append(" SELECT TOP 1 OS_ID FROM ORDEM_SERVICO ORDER BY OS_ID DESC ");
                     }
                     
@@ -163,6 +172,8 @@ namespace BO
                     this.cmd.Parameters[5].Value = this._OS_OBS;
                     this.cmd.Parameters.Add("@OS_STATUS", SqlDbType.Int);
                     this.cmd.Parameters[6].Value = this._OS_STATUS;
+                    this.cmd.Parameters.Add("@OS_KM_ATUAL", SqlDbType.BigInt);
+                    this.cmd.Parameters[7].Value = this._OS_KM_ATUAL;
 
                     this.con.Open();
                     SqlDataReader dr = this.cmd.ExecuteReader();

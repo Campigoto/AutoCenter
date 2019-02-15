@@ -17,7 +17,11 @@ namespace BO
         private string _CAR_COR;
         private int _CAR_ANO;
         private Cliente _ID_CLIENTE;
-
+        private long _CAR_KM_CADA_TROCA_OLEO;
+        private long _CAR_KM_ULTIMA_TROCA_OLEO;
+        private long _CAR_KM_CADA_TROCA_CORREIA;
+        private long _CAR_KM_ULTIMA_TROCA_CORREIA;
+      
         private StringBuilder _sb;
         private SqlConnection con = new SqlConnection(Connection.ConnectionString);
         private SqlCommand cmd;
@@ -60,7 +64,59 @@ namespace BO
             get { return _CAR_ANO; }
             set { _CAR_ANO = value; }
         }
-            
+
+        public long CAR_KM_CADA_TROCA_OLEO 
+        {
+            get {
+
+                if (_CAR_KM_CADA_TROCA_OLEO == null)
+                    return 0;
+
+                return _CAR_KM_CADA_TROCA_OLEO;  
+            }
+
+            set { _CAR_KM_CADA_TROCA_OLEO = value;  }
+        }
+
+        public long CAR_KM_ULTIMA_TROCA_OLEO
+        {
+            get {
+
+                if (_CAR_KM_ULTIMA_TROCA_OLEO == null)
+                    return 0;
+
+                return _CAR_KM_ULTIMA_TROCA_OLEO; 
+            }
+            set { _CAR_KM_ULTIMA_TROCA_OLEO = value; }
+        }
+
+        public long CAR_KM_CADA_TROCA_CORREIA
+        {
+            get
+            {
+
+                if (_CAR_KM_CADA_TROCA_CORREIA == null)
+                    return 0;
+
+                return _CAR_KM_CADA_TROCA_CORREIA;
+            }
+
+            set { _CAR_KM_CADA_TROCA_CORREIA = value; }
+        }
+
+        public long CAR_KM_ULTIMA_TROCA_CORREIA
+        {
+            get
+            {
+
+                if (_CAR_KM_ULTIMA_TROCA_CORREIA == null)
+                    return 0;
+
+                return _CAR_KM_ULTIMA_TROCA_CORREIA;
+            }
+            set { _CAR_KM_ULTIMA_TROCA_CORREIA = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -80,7 +136,11 @@ namespace BO
                 string MARCA, 
                 string MODELO, 
                 string COR, 
-                int ANO
+                int ANO,
+                long KM_CADA_TROCA_OLEO,
+                long ULTIMA_TROCA_OLEO,
+                long KM_CADA_TROCA_CORREIA,
+                long ULTIMA_TROCA_CORREIA
             )
         {
             this._CAR_ID = ID;
@@ -89,6 +149,10 @@ namespace BO
             this._CAR_MODELO = MODELO;
             this._CAR_COR = COR;
             this._CAR_ANO = ANO;
+            this._CAR_KM_CADA_TROCA_OLEO = KM_CADA_TROCA_OLEO;
+            this._CAR_KM_ULTIMA_TROCA_OLEO = ULTIMA_TROCA_OLEO;
+            this._CAR_KM_CADA_TROCA_CORREIA = KM_CADA_TROCA_CORREIA;
+            this._CAR_KM_ULTIMA_TROCA_CORREIA = ULTIMA_TROCA_CORREIA;
         }
 
         #endregion
@@ -100,7 +164,8 @@ namespace BO
             try
             {
                 this._sb = new StringBuilder();
-                this._sb.Append("SELECT CAR_ID, CAR_PLACA, CAR_MARCA,CAR_MODELO,CAR_COR,CAR_ANO");
+                this._sb.Append(@"SELECT CAR_ID, CAR_PLACA, CAR_MARCA, CAR_MODELO, CAR_COR, CAR_ANO, CAR_KM_CADA_TROCA_OLEO, CAR_KM_ULTIMA_TROCA_OLEO,
+                                  CAR_KM_CADA_TROCA_CORREIA, CAR_KM_ULTIMA_TROCA_CORREIA");
                 this._sb.Append(" FROM CARRO WHERE CAR_PLACA = @CAR_PLACA");
                 this.cmd = new SqlCommand(this._sb.ToString(), this.con);
                 this.cmd.CommandType = CommandType.Text;
@@ -120,6 +185,10 @@ namespace BO
                     this._CAR_MODELO = dr.IsDBNull(3) ? "" : dr.GetSqlString(3).Value;
                     this._CAR_COR = dr.IsDBNull(4) ? "" : dr.GetSqlString(4).Value;
                     this._CAR_ANO = dr.IsDBNull(5) ? 0 : dr.GetSqlInt32(5).Value;
+                    this._CAR_KM_CADA_TROCA_OLEO = dr.IsDBNull(6) ? 0 : dr.GetSqlInt64(6).Value;
+                    this._CAR_KM_ULTIMA_TROCA_OLEO = dr.IsDBNull(7) ? 0 : dr.GetSqlInt64(7).Value;
+                    this._CAR_KM_CADA_TROCA_CORREIA = dr.IsDBNull(8) ? 0 : dr.GetSqlInt64(8).Value;
+                    this._CAR_KM_ULTIMA_TROCA_CORREIA = dr.IsDBNull(9) ? 0 : dr.GetSqlInt64(9).Value;
                 }
                 else
                 {
@@ -145,12 +214,22 @@ namespace BO
                 if (this.CAR_ID == 0)
                 {
                     this._sb = new StringBuilder();
-                    this._sb.Append("INSERT INTO Carro ( CAR_PLACA , CAR_MARCA , CAR_MODELO , CAR_COR, CAR_ANO) ");
-                    this._sb.Append("VALUES (  @CAR_PLACA , @CAR_MARCA , @CAR_MODELO , @CAR_COR , @CAR_ANO) ");
+                    this._sb.Append("INSERT INTO Carro ( CAR_PLACA , CAR_MARCA , CAR_MODELO , CAR_COR, CAR_ANO, CAR_KM_CADA_TROCA_OLEO, CAR_KM_ULTIMA_TROCA_OLEO, CAR_KM_CADA_TROCA_CORREIA, CAR_KM_ULTIMA_TROCA_CORREIA) ");
+                    this._sb.Append("VALUES (  @CAR_PLACA , @CAR_MARCA , @CAR_MODELO , @CAR_COR , @CAR_ANO, @CAR_KM_CADA_TROCA_OLEO, @CAR_KM_ULTIMA_TROCA_OLEO, @CAR_KM_CADA_TROCA_CORREIA, @CAR_KM_ULTIMA_TROCA_CORREIA ) ");
                 }
                 else
                 {
-                    this._sb.Append("UPDATE Carro SET CAR_PLACA=@CAR_PLACA , CAR_MARCA=@CAR_MARCA , CAR_MODELO=@CAR_MODELO , CAR_COR=@CAR_COR , CAR_ANO=@CAR_ANO");
+                    this._sb.Append(@"UPDATE Carro 
+                                      SET CAR_PLACA=@CAR_PLACA, 
+                                          CAR_MARCA=@CAR_MARCA, 
+                                          CAR_MODELO=@CAR_MODELO, 
+                                          CAR_COR=@CAR_COR, 
+                                          CAR_ANO=@CAR_ANO,
+                                          CAR_KM_CADA_TROCA_OLEO=@CAR_KM_CADA_TROCA_OLEO,
+                                          CAR_KM_ULTIMA_TROCA_OLEO=@CAR_KM_ULTIMA_TROCA_OLEO,
+                                          CAR_KM_CADA_TROCA_CORREIA=@CAR_KM_CADA_TROCA_CORREIA, 
+                                          CAR_KM_ULTIMA_TROCA_CORREIA=@CAR_KM_ULTIMA_TROCA_CORREIA");
+
                     this._sb.Append(" WHERE CAR_ID=@CAR_ID");
                 }
 
@@ -171,6 +250,18 @@ namespace BO
 
                 this.cmd.Parameters.Add("@CAR_ID",SqlDbType.Int);
                 this.cmd.Parameters[5].Value = CAR_ID;
+
+                this.cmd.Parameters.Add("@CAR_KM_CADA_TROCA_OLEO", SqlDbType.BigInt);
+                this.cmd.Parameters[6].Value = CAR_KM_CADA_TROCA_OLEO;
+
+                this.cmd.Parameters.Add("@CAR_KM_ULTIMA_TROCA_OLEO", SqlDbType.BigInt);
+                this.cmd.Parameters[7].Value = CAR_KM_ULTIMA_TROCA_OLEO;
+
+                this.cmd.Parameters.Add("@CAR_KM_CADA_TROCA_CORREIA", SqlDbType.BigInt);
+                this.cmd.Parameters[8].Value = CAR_KM_CADA_TROCA_CORREIA;
+
+                this.cmd.Parameters.Add("@CAR_KM_ULTIMA_TROCA_CORREIA", SqlDbType.BigInt);
+                this.cmd.Parameters[9].Value = CAR_KM_ULTIMA_TROCA_CORREIA;
 
                 this.con.Open();
                 this.cmd.ExecuteNonQuery();

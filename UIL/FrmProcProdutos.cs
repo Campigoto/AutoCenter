@@ -321,8 +321,18 @@ namespace UIL
                                 Produtos_Compra produtos_compra = new Produtos_Compra();
                                 Global.PC_PRODUTO = 0;
 
-                                DataGridView grid = (DataGridView)form.Controls["gb_geral"].Controls["dgv_produtos"];
-                                grid.Rows.Add(produto.PRO_CODIGO, produto.PRO_NOME, produto.PRO_PRECO_VENDA_FORMATADO, "1", produto.PRO_PRECO_VENDA_FORMATADO);
+                                bool inserir = true;
+                                if (produto.PRO_ESTOQUE <= 0)
+                                {
+                                    DialogResult result = MessageBox.Show("Produto insuficiente, deseja inserir na ordem de serviço?", "Joincar", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                                    inserir = result == DialogResult.Yes;
+                                }
+
+                                if (inserir)
+                                {
+                                    DataGridView grid = (DataGridView)form.Controls["gb_geral"].Controls["dgv_produtos"];
+                                    grid.Rows.Add(produto.PRO_CODIGO, produto.PRO_NOME, produto.PRO_PRECO_VENDA_FORMATADO, "1", produto.PRO_PRECO_VENDA_FORMATADO);
+                                }
                             }
                             form.Enabled = true;
                             form.Show();

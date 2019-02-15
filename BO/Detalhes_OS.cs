@@ -21,6 +21,8 @@ namespace BO
             private DateTime _DET_DATA_ENTREGA;
             private string _DET_OBS;
             private int _DET_STATUS;
+            private long _DET_KM_ATUAL;
+            private string _OBSERVACAO;
 
             private StringBuilder _sb;
             private SqlConnection con = new SqlConnection(Connection.ConnectionString);
@@ -90,6 +92,19 @@ namespace BO
                 get { return _DET_STATUS; }
                 set { _DET_STATUS = value; }
             }
+
+            public long DET_KM_ATUAL
+            {
+                get { return _DET_KM_ATUAL; }
+                set { _DET_KM_ATUAL = value; }
+            }
+
+            public string OBSERVACAO
+            {
+                get { return _OBSERVACAO; }
+                set { _OBSERVACAO = value; }
+            }
+
         #endregion
 
         #region Constructors
@@ -106,7 +121,9 @@ namespace BO
                                DateTime det_data_entrada,
                                DateTime det_data_entrega,
                                string obs,
-                               int status) 
+                               int status,
+                               long km_atual,
+                               string observacao) 
                               {
                                   this._DET_OS_ID = det_os_id;
                                   this._DET_PRODUTO = det_produto;
@@ -120,6 +137,8 @@ namespace BO
                                   this._DET_DATA_ENTREGA = det_data_entrega;
                                   this._DET_OBS = obs;
                                   this._DET_STATUS = status;
+                                  this._DET_KM_ATUAL = km_atual;
+                                  this._OBSERVACAO = observacao;
                               }
 
         #endregion
@@ -131,8 +150,8 @@ namespace BO
                 try
                 {
                     this._sb = new StringBuilder();
-                    this._sb.Append(" INSERT INTO DETALHE_OS (DET_OS_ID, DET_PRODUTO, DET_QTD, DET_VALOR_UNIT, DET_VALOR_TOTAL, DET_DESCONTO) ");
-                    this._sb.Append(" VALUES (@DET_OS_ID, @DET_PRODUTO, @DET_QTD, @DET_VALOR_UNIT, @DET_VALOR_TOTAL, @DET_DESCONTO) ");
+                    this._sb.Append(" INSERT INTO DETALHE_OS (DET_OS_ID, DET_PRODUTO, DET_QTD, DET_VALOR_UNIT, DET_VALOR_TOTAL, DET_DESCONTO, OBSERVACAO) ");
+                    this._sb.Append(" VALUES (@DET_OS_ID, @DET_PRODUTO, @DET_QTD, @DET_VALOR_UNIT, @DET_VALOR_TOTAL, @DET_DESCONTO, @OBSERVACAO) ");
                     this.cmd = new SqlCommand(this._sb.ToString(), this.con);
 
                     // OS_ID
@@ -158,6 +177,9 @@ namespace BO
                     //DET_DESCONTO
                     this.cmd.Parameters.Add("@DET_DESCONTO", SqlDbType.Float);
                     this.cmd.Parameters[5].Value = this._DET_DESCONTO;
+
+                    this.cmd.Parameters.Add("@OBSERVACAO", SqlDbType.Text);
+                    this.cmd.Parameters[6].Value = this._OBSERVACAO;
 
                     this.con.Open();
                     cmd.ExecuteNonQuery();

@@ -31,8 +31,22 @@ namespace BO
             try
             {
                 this._sb = new StringBuilder();
-                this._sb.Append(" SELECT DET_OS_ID, DET_PRODUTO, DET_QTD, DET_VALOR_UNIT, DET_VALOR_TOTAL ");
-                this._sb.Append(" ,DET_DESCONTO, OS_CLIENTE , OS_PLACA, OS_DATA_ENTRADA, OS_DATA_ENTREGA, OS_OBS, OS_STATUS FROM DETALHE_OS INNER JOIN ORDEM_SERVICO ON DET_OS_ID = OS_ID WHERE OS_ID = @OS_ID ");
+                this._sb.Append(@" SELECT DET_OS_ID, 
+                                     DET_PRODUTO, DET_QTD, 
+                                     DET_VALOR_UNIT, 
+                                     DET_VALOR_TOTAL, 
+                                     DET_DESCONTO, 
+                                     OS_CLIENTE, 
+                                     OS_PLACA, 
+                                     OS_DATA_ENTRADA, 
+                                     OS_DATA_ENTREGA, 
+                                     OS_OBS, 
+                                     OS_STATUS, 
+                                     OS_KM_ATUAL,
+                                     OBSERVACAO 
+                                   FROM DETALHE_OS 
+                                   INNER JOIN ORDEM_SERVICO ON DET_OS_ID = OS_ID 
+                                   WHERE OS_ID = @OS_ID ");
                 this.cmd = new SqlCommand(this._sb.ToString(), this.con);
                 this.cmd.Parameters.Add("@OS_ID", SqlDbType.Int);
                 this.cmd.Parameters[0].Value = this.OS_ID;
@@ -54,8 +68,9 @@ namespace BO
                                                 dr.IsDBNull(8) ? new DateTime(1900,01,01) : dr.GetSqlDateTime(8).Value,
                                                 dr.IsDBNull(9) ? new DateTime(1900,01,01) : dr.GetSqlDateTime(9).Value,
                                                 dr.IsDBNull(10) ? "" : dr.GetSqlString(10).Value,
-                                                dr.IsDBNull(11) ? 0 : dr.GetSqlInt32(11).Value
-                                                
+                                                dr.IsDBNull(11) ? 0 : dr.GetSqlInt32(11).Value,
+                                                dr.IsDBNull(12) ? 0 : dr.GetSqlInt64(12).Value,
+                                                dr.IsDBNull(13) ? "" : dr.GetSqlString(13).Value
                                             ));
                 }
             }

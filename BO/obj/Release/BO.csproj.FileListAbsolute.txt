@@ -14,3 +14,8 @@ D:\Importantes\Pen16gb\AutoCenter\BO\bin\Release\BO.pdb
 D:\Importantes\Pen16gb\AutoCenter\BO\obj\Release\BO.csprojResolveAssemblyReference.cache
 D:\Importantes\Pen16gb\AutoCenter\BO\obj\Release\BO.dll
 D:\Importantes\Pen16gb\AutoCenter\BO\obj\Release\BO.pdb
+D:\AutoCenter\BO\bin\Release\BO.dll
+D:\AutoCenter\BO\bin\Release\BO.pdb
+D:\AutoCenter\BO\obj\Release\BO.csprojResolveAssemblyReference.cache
+D:\AutoCenter\BO\obj\Release\BO.dll
+D:\AutoCenter\BO\obj\Release\BO.pdb
